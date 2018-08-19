@@ -32,15 +32,14 @@ npm install
 ```
 
 
-3. Start the server
+4. Start the server
 ```
 ./manage.py runserver
 ```
 
 You can login @ 127.0.0.1:8000/accounts/login
----
 
-
+  
 ## How to add a theme
 
 
@@ -55,5 +54,15 @@ Note: the name must be relevant as it will appear in the theme select drop down 
 ``` python
 >>> from theme.models import Theme
 >>> theme = Theme.objects.create(name='NAME_HERE')
+# COPY THIS UUID!
 >>> print(str(theme.pk))
 ```
+
+
+3. Create a HTML file in the folder templates/themes/. IT HAS TO BE THE <b>UUID</b> of the entry!
+
+
+4. Add it to the THEME_LIST in themes/themes.py for other instances to use. <b>Important</b>
+
+
+5. Thats it! You should see it in the list. Use profile previews as a way to test the theme
