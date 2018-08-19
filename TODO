@@ -1,0 +1,6 @@
+Set Profile IDs to UUIDs
+Add unique to theme name
+Replace hardcoded urls in all views with reverse()
+Add a delete profile button
+Add PGP key option in profile
+Medium feed

@@ -1,0 +1,26 @@
+{% load static %}
+
+<div align="center">
+{% block content %}
+  <h2>Profile</h2>
+  <!--<a href="{% url 'accounts:logout' %}">logout</a> -->
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button id="preview">Preview</button>
+    <br><br>
+    <button type="submit">Save</button>
+  </form>
+
+{% endblock %}
+<div>
+
+<script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+<script>
+  var preview = $("#preview")
+  preview.on('click', function(){
+    data = $('form').serialize()
+    window.open('/theme/'+$("#id_theme").val()+'?'+data)
+  })
+</script>

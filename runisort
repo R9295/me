@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e
+isort --recursive --diff --skip migrations || exit 1

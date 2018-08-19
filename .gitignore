@@ -1,2 +1,5 @@
 node_modules/
 *.pyc
+webpack-stats.json
+package-lock.json
+db.sqlite3

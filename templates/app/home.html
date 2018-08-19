@@ -1,0 +1,11 @@
+<div align="center">
+  Welcome {{user.pk}},
+  <br><br>
+  {% if user.profile %}
+  Edit your profile <a href="{% url 'core:profile' %}">here.</a>
+  {% else %}
+  Create your profile <a href="{% url 'core:profile' %}">here.</a>
+  {% endif %}
+  <br><br>
+  Logout <a href="{% url 'accounts:logout' %}">here.</a>
+</div>
