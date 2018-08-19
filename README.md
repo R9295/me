@@ -59,7 +59,9 @@ Note: the name must be relevant as it will appear in the theme select drop down 
 ```
 
 
-3. Create a HTML file in the folder templates/themes/. IT HAS TO BE THE <b>UUID</b> of the entry!
+3. Create a HTML file in the folder templates/themes/ ; it has to be the <b>UUID</b> of the entry in DB!
+
+For example ``64d0a12c-4c9a-4f83-a62a-12612964d125.html``
 
 
 4. Add it to the THEME_LIST in themes/themes.py for other instances to use. <b>Important</b>
@@ -86,7 +88,7 @@ Note: the name must be relevant as it will appear in the theme select drop down 
   },
 ```
 5. Go to the HTML file and add the following in it:
-``` 
+```
 <!-- Add this bit at the beginning of the HTML file -->
 {% load render_bundle from webpack_loader %}
 
@@ -105,8 +107,8 @@ npm run watch
 7. Suggestions:
 
    a. webpack rebundles <b>all</b> the bundles everytime there's a change in any <b>one</b> file,for this a fix is appreciated, but in the meantime, clean the folder every now and then to save disk space!
-   
-   b. django-webpack-loader will give error messages in the template if the React.js build fails, if this is not verbose enough, check out the ``npm run watch`` server for more information.
-   
-   
+
+   b. django-webpack-loader will give error messages in the browser if the React.js build fails, if this is not verbose enough, check out the ``npm run watch`` server for more information.
+
+
 # GPL-3.0
