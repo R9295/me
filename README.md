@@ -66,3 +66,47 @@ Note: the name must be relevant as it will appear in the theme select drop down 
 
 
 5. Thats it! You should see it in the list. Use profile previews as a way to test the theme
+
+## How to add React.js to a theme
+
+
+1. Do the above
+
+
+2. Create a .js or a .jsx file in ``static/themes/`` with an appropriate name(ideally the same as the template name)
+
+3. Add your React.js code along with the ``ReactDOM.render()`` function.
+
+
+4. Add it to the webpack entry in webpack.config.js.
+``` javascript
+  entry: {
+    index: './static/app/index',
+    example: './static/themes/example'
+  },
+```
+5. Go to the HTML file and add the following in it:
+``` 
+<!-- Add this bit at the beginning of the HTML file -->
+{% load render_bundle from webpack_loader %}
+
+<!-- Create your <div> which React.js is supposed to use -->
+<div id="react"></div>
+
+<!-- load the bundle(same as the name of the key in the entry dictionary), this is essentially a script tag so position accordingly -->
+{% render_bundle 'example' %}
+```
+
+6. Run npm command to start watching and bundling, this has live reload!
+```
+npm run watch
+```
+
+7. Suggestions:
+
+   a. webpack rebundles <b>all</b> the bundles everytime there's a change in any <b>one</b> file,for this a fix is appreciated, but in the meantime, clean the folder every now and then to save disk space!
+   
+   b. django-webpack-loader will give error messages in the template if the React.js build fails, if this is not verbose enough, check out the ``npm run watch`` server for more information.
+   
+   
+# GPL-3.0
