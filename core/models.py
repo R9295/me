@@ -20,4 +20,3 @@ class Profile(models.Model):
     # pgp_fingerprint = models.CharField()
     # any key server address(eg. MIT)
     # pgp_link = models.URLField()
-    

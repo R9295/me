@@ -1,6 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
-from themes.themes import THEME_LIST
+from django.core.management.base import BaseCommand
+
 from themes.models import Theme
+from themes.themes import THEME_LIST
+
 
 class Command(BaseCommand):
     help = "Imports all themes if they don't exist, used for adding new themes."
