@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 from .models import Profile
 
+
 FIELD_CLASSES = {
     'prefix': 'uk-input',
     'first_name': 'uk-input',
@@ -28,6 +29,8 @@ FIELD_ICONS = {
     'medium': 'medium',
     'linkedin': 'linkedin',
 }
+
+
 class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -36,7 +39,6 @@ class ProfileForm(forms.ModelForm):
         for k, v in self.fields.items():
             v.widget.attrs['class'] = FIELD_CLASSES.get(k)
             v.widget.icon = FIELD_ICONS.get(k)
-
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
