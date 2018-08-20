@@ -1,11 +1,13 @@
-{% block title %}Login{% endblock %}
+{% extends "base/form.html" %}
 
-{% block content %}
-  <h2>Login</h2>
-  <!--<a href="{% url 'accounts:logout' %}">logout</a> -->
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+{% block title %}
+Login
+{% endblock %}
+
+{% block form_title %}
+<h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: sign-in; ratio: 2"></span> Login </h1>
+{% endblock %}
+
+{% block submit %}
+<button class="uk-button uk-button-primary" type="submit">LOGIN</button>
 {% endblock %}

@@ -1,4 +1,13 @@
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Sign up!">
-</form>
+{% extends "base/form.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block form_title %}
+<h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: users; ratio: 2"></span> SignUp </h1>
+{% endblock %}
+
+{% block submit %}
+<button class="uk-button uk-button-primary" type="submit">SIGN UP</button>
+{% endblock %}

@@ -1,26 +1,27 @@
+{% extends "base/form.html" %}
 {% load static %}
 
-<div align="center">
-{% block content %}
-  <h2>Profile</h2>
-  <!--<a href="{% url 'accounts:logout' %}">logout</a> -->
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <br>
-    <button id="preview">Preview</button>
-    <br><br>
-    <button type="submit">Save</button>
-  </form>
-
+{% block title %}
+Profile
 {% endblock %}
-<div>
 
+{% block form_title %}
+<h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: image; ratio: 2"></span> Profile </h1>
+{% endblock %}
+
+{% block submit %}
+<button class="uk-button uk-button-default" id="preview">PREVIEW</button>
+<br><br>
+<button class="uk-button uk-button-primary" type="submit">SAVE</button>
+{% endblock %}
+
+{% block scripts %}
 <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
 <script>
-  var preview = $("#preview")
-  preview.on('click', function(){
-    data = $('form').serialize()
-    window.open('/theme/'+$("#id_theme").val()+'?'+data)
-  })
+var preview = $("#preview")
+preview.on('click', function(){
+  data = $('form').serialize()
+  window.open('/theme/'+$("#id_theme").val()+'?'+data)
+})
 </script>
+{% endblock %}

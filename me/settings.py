@@ -25,7 +25,7 @@ SECRET_KEY = '6kr*grju2*3eq(vs2dh1&ms3oh54we!lp7_r4(+l4q*af3o#&y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0f7fa497.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '192.168.1.102']
 LOGIN_REDIRECT_URL = '/me/home'
 AUTH_USER_MODEL = 'accounts.User'
 

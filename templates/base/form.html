@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+{% block form_title %}
+{% endblock %}
+<form method="post">
+  {% csrf_token %}
+              {% if form.non_field_errors %}
+              <div class="uk-alert-danger uk-width-5-6" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                    {% for error in form.non_field_errors%}
+                      <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                    {% endfor %}
+              </div>
+              {% endif %}
+              {% csrf_token %}
+              {% for field in form.visible_fields %}
+              <div class="uk-margin" align="">
+                {% if field.errors %}
+                <div class="uk-alert-danger uk-width-5-6" uk-alert>
+                  <a class="uk-alert-close" uk-close></a>
+                  {% for error in field.errors%}
+                    <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                  {% endfor %}
+                </div>
+                {% endif %}
+                <div align="center">
+                <label for="{{field.id_for_label}}" align="left">
+                {{ field.label }}
+                </label>
+                <br>
+                <div class="uk-inline uk-width-2-3" align="left">
+                  <!-- TODO find alternative icon provider with more icons-->
+                  {% if field.field.widget.icon %}
+                   <span class="uk-form-icon" uk-icon="icon: {{field.field.widget.icon}}"></span>
+                  {% endif %}
+                  {{field}}
+                </div>
+                </div>
+                {% if field.help_text %}
+                <small class="help" align="left">{{ field.help_text|safe }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+  <br>
+  {% block submit %}
+  <!-- Some flexibility to add preview button or a different submit button etc -->
+  {% endblock %}
+</form>
+{% endblock %}
