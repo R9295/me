@@ -1,93 +1,171 @@
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
+<html>
 
-  <head>
+<head>
+  <title>John Doe</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700' rel='stylesheet' type='text/css'>
+  <style>
+  html, body {
+    overflow: hidden;
+    margin: 0;
+  }
+  body {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+  }
+  .wrapper {
+    position: absolute;
+    left: 0;
+    width: 680px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  h1 {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 9px;
+    text-transform: uppercase;
+    margin: 12px 0;
+    left: 4px;
+  }
+  h2 {
+    color: #999;
+    font-weight: normal;
+    font-size: 18px;
+    letter-spacing: .12em;
+    left: 3px;
+  }
+  h1, h2 {
+    position: relative;
+  }
+  p.links {
+    font-size: 14px;
+    line-height: 2em;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  p.description {
+    font-size: 16px;
+    line-height: 1.4em;
+    margin: 0;
+    color: #333;
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  a {
+    color: #999;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  a:hover {
+    color: #3c40c6;
+  }
+  .avatar-user {
+    z-index: 999;
+  }
+  </style>
+</head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<body>
+  <canvas></canvas>
+  <div class="uk-position-center wrapper">
+    <img src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" alt="Avatar" class="avatar-user" width="128">
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <h2>{{user.short_description}}</h2>
+    <p class="description">
+      {{user.description}}
+    </p>
+    <p>
+      <a href="#" target="_blank" class="link">Website</a>
+    </p>
+    <p>
+      <a href="#" target="_blank" class="link">Blog</a>
+    </p>
+  </div>
+  <ul class="uk-tab-bottom uk-flex-center uk-position-bottom" uk-tab>
+    <li class="uk-active"><a href="#">Home</a></li>
+    <li><a href="#">Medium</a></li>
+    <li><a href="#">Github</a></li>
+    <li><a href="#">Twitter</a></li>
+  </ul>
+  <script>
+    // Background Design from Tympanus
+    document.addEventListener('touchmove', function (e) {
+      e.preventDefault()
+    })
+    var c = document.getElementsByTagName('canvas')[0],
+      x = c.getContext('2d'),
+      pr = window.devicePixelRatio || 1,
+      w = window.innerWidth,
+      h = window.innerHeight,
+      f = 90,
+      q,
+      m = Math,
+      r = 0,
+      u = m.PI * 2,
+      v = m.cos,
+      z = m.random
+    c.width = w * pr
+    c.height = h * pr
+    x.scale(pr, pr)
+    x.globalAlpha = 0.6
 
-    <title>One Page Wonder - Start Bootstrap Template</title>
+    function i() {
+      x.clearRect(0, 0, w, h)
+      q = [{
+        x: 0,
+        y: h * .7 + f
+      }, {
+        x: 0,
+        y: h * .7 - f
+      }]
+      while (q[1].x < w + f) d(q[0], q[1])
+    }
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    function d(i, j) {
+      x.beginPath()
+      x.moveTo(i.x, i.y)
+      x.lineTo(j.x, j.y)
+      var k = j.x + (z() * 2 - 0.25) * f,
+        n = y(j.y)
+      x.lineTo(k, n)
+      x.closePath()
+      r -= u / -50
+      x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(
+        16)
+      x.fill()
+      q[0] = q[1]
+      q[1] = {
+        x: k,
+        y: n
+      }
+    }
 
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static "basic/basic.css" %}" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-    <!-- Navigation
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Log In</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    -->
-    <header class="masthead text-center text-white">
-      <div class="masthead-content">
-        <div class="container">
-          <h1 class="masthead-heading mb-0">{{user.first_name}} {{user.last_name}}</h1>
-          <br>
-          <h2 class="masthead-subheading mb-0">{{user.short_description}}</h2>
-        </div>
-      </div>
-    </header>
-
-
-    <div class="container">
-      <h1 align="center">About</h1>
-      <h3 align="center"> >>>>Note that this will be rendered with markdown for better formatting<<<< </h3>
-      <br><br>
-      <h4>
-        {{user.description}}
-      </h4>
-      <br><br>
-    </div>
-
-    <div class="container">
-      <h1 align="center">Social Media</h1>
-      <h3 align="center"> >>>>TODO: Display icons with respected social media services the user has entered<<<< </h3>
-      <br><br>
-      <h4 align="center">
-        >>>PLACEHOLDER<<<<
-      </h4>
-      <br><br>
-    </div>
-
-    <!-- Footer -->
-    <footer class="py-5 bg-black">
-      <div class="container">
-        <p class="m-0 text-center text-white small">Copyright &copy; django-me 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-
-  </body>
+    function y(p) {
+      var t = p + (z() * 2 - 1.1) * f
+      return (t > h || t < 0) ? y(p) : t
+    }
+    document.onclick = i
+    document.ontouchstart = i
+    i()
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+</body>
 
 </html>
