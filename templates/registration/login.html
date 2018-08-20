@@ -1,64 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css" />
+{% extends "base/form.html" %}
 
-        <!-- UIkit JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
-  </head>
-    <body>
-      <div align="center">
-    <div class="uk-container-xsmall">
-      {% block content %}
-        <h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: sign-in; ratio: 2"></span>  Login</h1>
-        <!--<a href="{% url 'accounts:logout' %}">logout</a> -->
-        <form method="post">
-          {% csrf_token %}
+{% block title %}
+Login
+{% endblock %}
 
-                      {% if form.non_field_errors %}
-                      <div class="uk-alert-danger uk-width-5-6" uk-alert>
-                        <a class="uk-alert-close" uk-close></a>
-                            {{ form.non_field_errors }}
-                      </div>
-                      {% endif %}
-                      {% csrf_token %}
-                      {% for field in form.visible_fields %}
-                      <div class="uk-margin" align="">
-                        {% if field.errors %}
-                        <div class="uk-alert-danger uk-width-5-6" uk-alert>
-                          <a class="uk-alert-close" uk-close></a>
-                              {{ field.errors }}
-                        </div>
-                        {% endif %}
-                        <div align="center">
-                        <label for="{{field.id_for_label}}" align="left">
-                        {{ field.label }}
-                        </label>
-                        <br>
-                        <div class="uk-inline uk-width-2-3" align="left">
-                          <!-- TODO find alternative icon provider with more icons-->
-                          {% if field.field.widget.icon %}
-                           <span class="uk-form-icon" uk-icon="icon: {{field.field.widget.icon}}"></span>
-                          {% endif %}
-                          {{field}}
-                        </div>
-                        </div>
-                        {% if field.help_text %}
-                        <small class="help" align="left">{{ field.help_text|safe }}</small>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-          <br>
-          <button class="uk-button uk-button-primary" type="submit">LOGIN</button>
-        </form>
-      {% endblock %}
-    </div>
-    </div>
-    </body>
-</html>
+{% block form_title %}
+<h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: sign-in; ratio: 2"></span> Login </h1>
+{% endblock %}
+
+{% block submit %}
+<button class="uk-button uk-button-primary" type="submit">LOGIN</button>
+{% endblock %}
