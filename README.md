@@ -28,7 +28,7 @@ npm install
 
 3. Import the themes
 ```
-./manage.py import themes
+./manage.py import_themes
 ```
 
 
