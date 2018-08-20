@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 
 from .models import Profile
 
-
 FIELD_CLASSES = {
     'prefix': 'uk-input',
     'first_name': 'uk-input',

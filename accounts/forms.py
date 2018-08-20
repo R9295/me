@@ -1,19 +1,31 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 
 from .models import User
 
-FIELD_CLASSES = {
+CREATE_FIELD_CLASSES = {
     'email': 'uk-input',
     'password1': 'uk-input',
     'password2': 'uk-input',
 }
 
-FIELD_ICONS = {
+CREATE_FIELD_ICONS = {
     'email': 'user',
     'password1': 'lock',
     'password2': 'lock',
 }
+
+LOGIN_FIELD_CLASSES = {
+    'username': 'uk-input',
+    'password': 'uk-input',
+}
+LOGIN_FIELD_ICONS = {
+    'username': 'user',
+    'password': 'lock',
+}
+
+
 class UserCreationForm(BaseUserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
@@ -22,8 +34,8 @@ class UserCreationForm(BaseUserCreationForm):
         super(UserCreationForm, self).__init__(*args, **kwargs)
         # set classes
         for k, v in self.fields.items():
-            v.widget.attrs['class'] = FIELD_CLASSES.get(k)
-            v.widget.icon = FIELD_ICONS.get(k)
+            v.widget.attrs['class'] = CREATE_FIELD_CLASSES.get(k)
+            v.widget.icon = CREATE_FIELD_ICONS.get(k)
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -36,3 +48,13 @@ class UserCreationForm(BaseUserCreationForm):
     class Meta:
         model = User
         fields = ('email', )
+
+
+class LoginForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        # set classes
+        for k, v in self.fields.items():
+            v.widget.attrs['class'] = LOGIN_FIELD_CLASSES.get(k)
+            v.widget.icon = LOGIN_FIELD_ICONS.get(k)
