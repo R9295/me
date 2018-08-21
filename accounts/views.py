@@ -1,8 +1,8 @@
+from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import UserCreationForm
+from .forms import LoginForm, UserCreationForm
 
 
 class SignUpView(SuccessMessageMixin, FormView):
@@ -15,3 +15,7 @@ class SignUpView(SuccessMessageMixin, FormView):
         form.save()
         # TODO send confirmation email
         return super().form_valid(form)
+
+
+class LoginView(BaseLoginView):
+    form_class = LoginForm
