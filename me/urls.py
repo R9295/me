@@ -22,4 +22,5 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('', include(('core.urls', 'core'), namespace='core')),
     path('theme/', include(('themes.urls', 'themes'), namespace='themes')),
+    path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
 ]

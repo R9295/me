@@ -13,6 +13,16 @@
                     {% endfor %}
               </div>
               {% endif %}
+              {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <div class="uk-alert-success" uk-alert>
+                  <a class="uk-alert-close" uk-close></a>
+                  <p align="center"><span class="uk-margin-small-right" uk-icon="icon: happy"></span>{{ message }}</p>
+                  </div>
+                  {% endfor %}
+              </ul>
+              {% endif %}
               {% csrf_token %}
               {% for field in form.visible_fields %}
               <div class="uk-margin" align="">
