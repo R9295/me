@@ -9,7 +9,7 @@ class CouponActivateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = 'coupons/activate.html'
     form_class = CouponActivateForm
     success_url = '/coupons/activate'
-    success_message = "Successfully activated coupon!"
+    success_message = "Successfully activated your coupon!"
 
     def get_form_kwargs(self):
         kwargs = super(CouponActivateView, self).get_form_kwargs()

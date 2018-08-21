@@ -16,7 +16,7 @@ class TestAccounts(TestCase):
 
     def test_create_user(self):
         res = c.post('/accounts/signup', user, follow=True)
-        self.assertContains(res, 'Thanks for signing up,')
+        self.assertContains(res, 'Thanks for signing up!')
 
     def test_passwords_not_matching(self):
         _user = user.copy()
