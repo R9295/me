@@ -31,7 +31,12 @@ npm install
 ./manage.py import_themes
 ```
 
-
+4. Get Google recaptcha keys and then add them as environment variables.
+Add this in your ``~/.bashrc`` or ``~/.zshrc`` for it to be remembered
+``` bash
+export NORECAPTCHA_SITE_KEY=<your_site_key>
+export NORECAPTCHA_SECRET_KEY=<your_secret_key>
+```
 4. Start the server
 ```
 ./manage.py runserver

@@ -1,8 +1,9 @@
 from dateutil.relativedelta import relativedelta
 from django import forms
 from django.core.exceptions import ValidationError
-
 from .models import Coupon
+from nocaptcha_recaptcha.fields import NoReCaptchaField
+
 
 FIELD_CLASSES = {
     'code': 'uk-input'
@@ -14,12 +15,14 @@ FIELD_ICONS = {
 
 
 class CouponActivateForm(forms.Form):
+    captcha = NoReCaptchaField()
     code = forms.CharField(max_length=20)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(CouponActivateForm, self).__init__(*args, **kwargs)
         # set classes
+        #self.fields.get('captcha').widget.attrs['align'] = 'center'
         for k, v in self.fields.items():
             v.widget.attrs['class'] = FIELD_CLASSES.get(k)
             v.widget.icon = FIELD_ICONS.get(k)

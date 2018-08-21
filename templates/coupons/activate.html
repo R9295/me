@@ -11,3 +11,10 @@ Activate Coupon
 {% block submit %}
 <button class="uk-button uk-button-primary" type="submit">SUBMIT</button>
 {% endblock %}
+
+{% block scripts %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  document.getElementsByClassName('g-recaptcha')[0].align = 'center'
+</script>
+{% endblock %}

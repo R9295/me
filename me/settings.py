@@ -41,10 +41,14 @@ INSTALLED_APPS = [
     'webpack_loader',
     'coupons',
     'accounts',
+    'nocaptcha_recaptcha',
     'core',
     'themes',
     'me',
 ]
+
+NORECAPTCHA_SITE_KEY =  os.environ['NORECAPTCHA_SITE_KEY']
+NORECAPTCHA_SECRET_KEY = os.environ['NORECAPTCHA_SECRET_KEY']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

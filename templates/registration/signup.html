@@ -11,3 +11,9 @@ Sign Up
 {% block submit %}
 <button class="uk-button uk-button-primary" type="submit">SIGN UP</button>
 {% endblock %}
+{% block scripts %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  document.getElementsByClassName('g-recaptcha')[0].align = 'center'
+</script>
+{% endblock %}
