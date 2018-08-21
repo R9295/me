@@ -1,5 +1,6 @@
 import uuid
 
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
@@ -35,6 +36,11 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+def get_default_end_date():
+    time = timezone.now() + relativedelta(months=1)
+    return time
+
+
 class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
@@ -44,4 +50,5 @@ class User(AbstractBaseUser):
     last_login = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
+    end_date = models.DateTimeField(default=get_default_end_date)
     objects = UserManager()

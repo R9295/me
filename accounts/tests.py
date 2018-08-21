@@ -1,4 +1,5 @@
 from django.test import Client, TestCase
+from django.utils.timezone import now
 
 from .models import User
 
@@ -36,3 +37,9 @@ class TestAccounts(TestCase):
         res = c.post('/accounts/login', _user, follow=True)
         # Change this once there's a homepage
         self.assertEqual(res.status_code, 200)
+
+    def test_end_date(self):
+        user = self._create_user()
+        diff = user.end_date - now()
+        diff = 32 > int(diff.days) > 28
+        self.assertTrue(diff)

@@ -1,4 +1,7 @@
+from dateutil.relativedelta import relativedelta
+from django.core.management import call_command
 from django.test import Client, TestCase
+from django.utils.timezone import now
 
 from accounts.models import User
 from core.models import Profile
@@ -32,10 +35,14 @@ class TestCore(TestCase):
             usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
         return usr
 
-    def _create_profile(self):
+    def _create_profile(self, user=None):
         profile = self.profile.copy()
         profile['theme'] = self._create_theme()
-        profile['user'] = self._create_user()
+        if user:
+            profile['user'] = user
+        else:
+            profile['user'] = self._create_user()
+
         Profile.objects.create(**profile)
 
     def test_create_profile(self):
@@ -116,3 +123,23 @@ class TestCore(TestCase):
         profile['description'] = '<a href="https://asd.com/somescript.JS"></a>'
         res = c.post('/me/profile', profile, follow=True)
         self.assertContains(res, 'XSS warning!')
+
+    def test_inactive_profile(self):
+        user = User.objects.create_user(email=user_login['email'],
+                                        password=user_login['password'],
+                                        end_date=now()-relativedelta(months=1))
+        self._create_profile(user=user)
+        call_command('check_end_date')
+        profile = Profile.objects.get(user=user)
+        self.assertEqual(profile.active, False)
+
+    def test_404_if_inactive_profile(self):
+        user = User.objects.create_user(email=user_login['email'],
+                                        password=user_login['password'],
+                                        end_date=now()-relativedelta(months=1))
+        self._create_profile(user=user)
+        res = c.get('/me', follow=True)
+        self.assertEqual(res.status_code, 200)
+        call_command('check_end_date')
+        res = c.get('/me', follow=True)
+        self.assertEqual(res.status_code, 404)
