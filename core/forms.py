@@ -29,6 +29,14 @@ FIELD_ICONS = {
     'linkedin': 'linkedin',
 }
 
+# XSS filtering
+XSS_FILTERS = [
+    'javascript:',
+    '.js',
+    'document.cookie',
+    '.JS',
+]
+
 
 class ProfileForm(forms.ModelForm):
 
@@ -44,6 +52,9 @@ class ProfileForm(forms.ModelForm):
         if 'user' in self.changed_data and self.cleaned_data.get('user'):
             if self.initial['user'] != str(self.cleaned_data.get('user').pk):
                 raise ValidationError({'user': "The user you're trying to edit is not you!"})
+        for word in XSS_FILTERS:
+            if word in self.cleaned_data.get('description'):
+                raise ValidationError({'description': 'XSS warning! Nothing related to javascript is allowed'})
         return cleaned_data
 
     class Meta:

@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<style>
+.CodeMirror {
+	height: 300px;
+}
+</style>
 {% extends "base/form.html" %}
 {% load static %}
 
@@ -17,6 +23,10 @@ Profile
 
 {% block scripts %}
 <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+var simplemde = new SimpleMDE({ element: document.getElementById('id_description'), forceSync: true });
+</script>
 <script>
 var preview = $("#preview")
 preview.on('click', function(){

@@ -42,6 +42,18 @@
                 {% endif %}
             </div>
             {% endfor %}
+            {% for field in form.hidden_fields %}
+              {{ field }}
+              {% if field.errors %}
+              <div class="uk-alert-danger uk-width-5-6" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                {% for error in field.errors%}
+                  <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            {% endfor %}
+
   <br>
   {% block submit %}
   <!-- Some flexibility to add preview button or a different submit button etc -->

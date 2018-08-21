@@ -77,7 +77,7 @@ class TestCore(TestCase):
         profile['theme'] = theme.pk
         c.login(username='test@asd.asd', password='test123456789')
         res = c.post('/me/profile', profile, follow=True)
-        self.assertContains(res, "(Hidden field user) This field is required.")
+        self.assertContains(res, "This field is required.")
 
     def test_theme_required(self):
         _user = self._create_user()
@@ -87,7 +87,7 @@ class TestCore(TestCase):
         profile['user'] = _user.pk
         c.login(username='test@asd.asd', password='test123456789')
         res = c.post('/me/profile', profile, follow=True)
-        self.assertContains(res, '<li>This field is required.</li></ul>\n<p><label for="id_theme">Theme:</label>')
+        self.assertContains(res, 'This field is required')
 
     def test_prefix_required(self):
         _user = self._create_user()
@@ -98,4 +98,21 @@ class TestCore(TestCase):
         profile.pop('prefix', None)
         c.login(username=user_login['email'], password=user_login['password'])
         res = c.post('/me/profile', profile, follow=True)
-        self.assertContains(res, '<li>This field is required.</li></ul>\n<p><label for="id_prefix">Prefix:</label>')
+        self.assertContains(res, 'This field is required')
+
+    def test_markdown_xss(self):
+        _user = self._create_user()
+        theme = self._create_theme()
+        c.login(username=user_login['email'], password=user_login['password'])
+        profile = self.profile.copy()
+        profile['theme'] = theme.pk
+        profile['user'] = str(_user.pk)
+        profile['description'] = '<a href="javascript:alert(123)"></a>'
+        res = c.post('/me/profile', profile, follow=True)
+        self.assertContains(res, 'XSS warning!')
+        profile['description'] = '<a href="https://asd.com/somescript.js"></a>'
+        res = c.post('/me/profile', profile, follow=True)
+        self.assertContains(res, 'XSS warning!')
+        profile['description'] = '<a href="https://asd.com/somescript.JS"></a>'
+        res = c.post('/me/profile', profile, follow=True)
+        self.assertContains(res, 'XSS warning!')

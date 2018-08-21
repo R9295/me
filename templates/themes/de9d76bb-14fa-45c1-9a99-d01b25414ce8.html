@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -87,8 +88,8 @@
     <img src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" alt="Avatar" class="avatar-user" width="128">
     <h1>{{user.first_name}} {{user.last_name}}</h1>
     <h2>{{user.short_description}}</h2>
-    <p class="description">
-      {{user.description}}
+    <p class="description" id="description">
+      {{ user.description }}
     </p>
     <p>
       <a href="#" target="_blank" class="link">Website</a>
@@ -166,6 +167,10 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+  document.getElementById('description').innerHTML =
+  marked(document.getElementById('description').innerHTML.trim())
+  </script>
 </body>
-
 </html>
