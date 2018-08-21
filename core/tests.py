@@ -114,13 +114,13 @@ class TestCore(TestCase):
         profile = self.profile.copy()
         profile['theme'] = theme.pk
         profile['user'] = str(_user.pk)
-        profile['description'] = '<a href="javascript:alert(123)"></a>'
+        profile['description'] = '[](javascript:alert(123))>'
         res = c.post('/me/profile', profile, follow=True)
         self.assertContains(res, 'XSS warning!')
-        profile['description'] = '<a href="https://asd.com/somescript.js"></a>'
+        profile['description'] = '[](http://someserver/somescript.js)'
         res = c.post('/me/profile', profile, follow=True)
         self.assertContains(res, 'XSS warning!')
-        profile['description'] = '<a href="https://asd.com/somescript.JS"></a>'
+        profile['description'] = '[](http://someserver/somescript.JS)'
         res = c.post('/me/profile', profile, follow=True)
         self.assertContains(res, 'XSS warning!')
 
