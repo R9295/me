@@ -1,7 +1,7 @@
 import uuid
 
 from dateutil.relativedelta import relativedelta
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -41,7 +41,7 @@ def get_default_end_date():
     return time
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     email = models.EmailField(_('email address'), unique=True)
