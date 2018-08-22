@@ -1,4 +1,4 @@
-Django==2.1
+django>=2.0,<2.1
 django-nocaptcha-recaptcha==0.0.20
 django-ratelimit==1.1.0
 django-webpack-loader==0.6.0

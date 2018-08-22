@@ -1,0 +1,23 @@
+language: python
+sudo: false
+cache: pip
+
+python:
+  - "3.4"
+
+env:
+  - DJANGO="django=2.0,<2.1"
+
+branches:
+  only:
+    - master
+
+install:
+  - pip install -U pip wheel setuptools
+  - pip install --no-cache-dir -U -r requirements.txt
+  - ./runflake8
+  - ./runisort
+  - ./manage.py migrate
+
+script:
+  ./manage.py test
