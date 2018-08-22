@@ -1,13 +1,15 @@
-from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import FormView
 
-from .forms import UserCreationForm
+from .forms import LoginForm, UserCreationForm
 
 
-class SignUpView(FormView):
+class SignUpView(SuccessMessageMixin, FormView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
-    success_url = '/accounts/thanks'
+    success_url = '/accounts/signup'
+    success_message = 'Thanks for signing up!'
 
     def form_valid(self, form):
         form.save()
@@ -15,5 +17,5 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
 
-class ThanksView(TemplateView):
-    template_name = 'registration/thanks.html'
+class LoginView(BaseLoginView):
+    form_class = LoginForm

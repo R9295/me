@@ -1,4 +1,7 @@
+import os
+
 from django.test import Client, TestCase
+from django.utils.timezone import now
 
 from .models import User
 
@@ -9,13 +12,20 @@ user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 class TestAccounts(TestCase):
 
+    def setUp(self):
+        os.environ['NORECAPTCHA_TESTING'] = 'True'
+
     def _create_user(self):
         usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
         return usr
 
     def test_create_user(self):
-        res = c.post('/accounts/signup', user, follow=True)
-        self.assertContains(res, 'Thanks for signing up,')
+        usr = user.copy()
+        usr.update({
+            'g-recaptcha-response': 'PASSED',
+        })
+        res = c.post('/accounts/signup', usr, follow=True)
+        self.assertContains(res, 'Thanks for signing up!')
 
     def test_passwords_not_matching(self):
         _user = user.copy()
@@ -36,3 +46,9 @@ class TestAccounts(TestCase):
         res = c.post('/accounts/login', _user, follow=True)
         # Change this once there's a homepage
         self.assertEqual(res.status_code, 200)
+
+    def test_end_date(self):
+        user = self._create_user()
+        diff = user.end_date - now()
+        diff = 32 > int(diff.days) > 28
+        self.assertTrue(diff)

@@ -25,10 +25,10 @@ SECRET_KEY = '6kr*grju2*3eq(vs2dh1&ms3oh54we!lp7_r4(+l4q*af3o#&y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '192.168.1.102']
+ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = '/me/home'
 AUTH_USER_MODEL = 'accounts.User'
-
+LOGIN_URL = '/accounts/login'
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,11 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
+    'coupons',
     'accounts',
+    'nocaptcha_recaptcha',
     'core',
     'themes',
     'me',
 ]
+
+NORECAPTCHA_SITE_KEY = os.environ['NORECAPTCHA_SITE_KEY']
+NORECAPTCHA_SECRET_KEY = os.environ['NORECAPTCHA_SECRET_KEY']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

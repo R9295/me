@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -7,11 +9,12 @@ from .forms import ProfileForm
 from .models import Profile
 
 
-class ProfileView(LoginRequiredMixin, FormView):
+class ProfileView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = ProfileForm
-    login_url = '/accounts/login'
+    login_url = settings.LOGIN_URL
     template_name = 'app/profile.html'
     success_url = '/me/profile'
+    success_message = 'Successfully updated your profile.'
 
     def get_initial(self):
         initial = super(ProfileView, self).get_initial()
@@ -35,7 +38,7 @@ class UserView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserView, self).get_context_data()
-        context['user'] = get_object_or_404(Profile, prefix=self.kwargs.get('user_prefix'))
+        context['user'] = get_object_or_404(Profile, prefix=self.kwargs.get('user_prefix'), active=True)
         self.profile = context['user']
         return context
 
@@ -44,7 +47,7 @@ class UserView(TemplateView):
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
-    login_url = '/accounts/login'
+    login_url = settings.LOGIN_URL
     template_name = 'app/home.html'
 
 

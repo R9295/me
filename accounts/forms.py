@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
+from nocaptcha_recaptcha.fields import NoReCaptchaField
 
 from .models import User
 
@@ -29,6 +30,7 @@ LOGIN_FIELD_ICONS = {
 class UserCreationForm(BaseUserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+    captcha = NoReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)

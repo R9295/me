@@ -17,6 +17,7 @@ class Profile(models.Model):
     linkedin = models.URLField(blank=True)
     prefix = models.CharField(max_length=25, unique=True)
     short_description = models.CharField(max_length=100, blank=True)
+    active = models.BooleanField(default=True)
     # pgp_fingerprint = models.CharField()
     # any key server address(eg. MIT)
     # pgp_link = models.URLField()
