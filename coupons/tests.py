@@ -53,3 +53,20 @@ class TestCoupon(TestCase):
         self.assertEqual(Coupon.objects.first().activated, True)
         # check if the user is assigned to acitvated_by
         self.assertEqual(Coupon.objects.first().activated_by, user)
+
+    def test_cannot_edit_coupon(self):
+        self._create_superuser()
+        c.login(username=user_login['email'], password=user_login['password'])
+        c.post('/admin/coupons/coupon/add/', {
+            '_save': ['Save'],
+            'activated_by': [''],
+            'months': ['12']
+        }, follow=True)
+        self.assertEqual(Coupon.objects.all().count(), 1)
+        coupon = Coupon.objects.first()
+        c.post('/admin/coupons/coupon/{}/change'.format(str(coupon.pk)), {
+            '_save': ['Save'],
+            'activated_by': ['123'],
+            'months': ['6']
+        }, follow=True)
+        self.assertEqual(Coupon.objects.first().months, 12)
