@@ -1,3 +1,5 @@
+import os
+
 from django.test import Client, TestCase
 
 from accounts.models import User
@@ -10,6 +12,9 @@ user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 
 class TestCoupon(TestCase):
+
+    def setUp(self):
+        os.environ['NORECAPTCHA_TESTING'] = 'True'
 
     def _create_user(self):
         user = User.objects.create_user(**user_login)
@@ -39,7 +44,8 @@ class TestCoupon(TestCase):
         }, follow=True)
         coupon = Coupon.objects.first()
         end_date = user.end_date
-        c.post('/coupons/activate', {'code': coupon.code}, follow=True)
+        c.post('/coupons/activate', {'code': coupon.code,
+                                     'g-recaptcha-response': 'PASSED'}, follow=True)
         # check if the end date has increased by 12 months
         diff = User.objects.first().end_date - end_date
         self.assertTrue(367 > diff.days > 364)

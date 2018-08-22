@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from nocaptcha_recaptcha.fields import NoReCaptchaField
+
 from .models import User
 
 CREATE_FIELD_CLASSES = {

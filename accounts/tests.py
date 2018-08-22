@@ -1,3 +1,5 @@
+import os
+
 from django.test import Client, TestCase
 from django.utils.timezone import now
 
@@ -10,12 +12,19 @@ user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 class TestAccounts(TestCase):
 
+    def setUp(self):
+        os.environ['NORECAPTCHA_TESTING'] = 'True'
+
     def _create_user(self):
         usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
         return usr
 
     def test_create_user(self):
-        res = c.post('/accounts/signup', user, follow=True)
+        usr = user.copy()
+        usr.update({
+            'g-recaptcha-response': 'PASSED',
+        })
+        res = c.post('/accounts/signup', usr, follow=True)
         self.assertContains(res, 'Thanks for signing up!')
 
     def test_passwords_not_matching(self):
