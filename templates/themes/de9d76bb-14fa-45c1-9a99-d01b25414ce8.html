@@ -14,7 +14,11 @@
 <body>
   <canvas></canvas>
   <div class="uk-position-center wrapper">
-    <img src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" alt="Avatar" class="avatar-user" width="128">
+    {% if user.image %}
+    <img src="{{ user.image.url }}" alt="Avatar" class="avatar-user" width="128">
+    {% else %}
+    <img src="/media/defaults/default_user.png" alt="Avatar" class="avatar-user" width="128">
+    {% endif %}
     <h1>{{user.first_name}} {{user.last_name}}</h1>
     <h2>{{user.short_description}}</h2>
     <p class="description" id="description">

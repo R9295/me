@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
     'webpack_loader',
     'coupons',
     'accounts',
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
 
 NORECAPTCHA_SITE_KEY = os.environ['NORECAPTCHA_SITE_KEY']
 NORECAPTCHA_SECRET_KEY = os.environ['NORECAPTCHA_SECRET_KEY']
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,3 +143,6 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,4 +1,6 @@
 from dateutil.relativedelta import relativedelta
+from django.conf import settings
+
 from django.core.management import call_command
 from django.test import Client, TestCase
 from django.utils.timezone import now
@@ -143,3 +145,15 @@ class TestCore(TestCase):
         call_command('check_end_date')
         res = c.get('/me', follow=True)
         self.assertEqual(res.status_code, 404)
+
+    def test_image_field(self):
+        _user = self._create_user()
+        theme = self._create_theme()
+        profile = self.profile.copy()
+        profile['theme'] = theme.pk
+        profile['user'] = str(_user.pk)
+        with open(settings.BASE_DIR+'/media/defaults/default_user.png', 'rb') as img:
+            profile['image'] = img
+            c.login(username=user_login['email'], password=user_login['password'])
+            c.post('/me/profile', profile, follow=True)
+            self.assertNotEqual(Profile.objects.first().image, None)
