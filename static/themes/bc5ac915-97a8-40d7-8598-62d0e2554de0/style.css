@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+body {
+  margin: 0;
+  font-family: "Poppins", sans-Serif;
+}
+.container {
+  margin: 0 auto;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #08AEEA;
+  background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+}
+.card {
+  perspective: 150rem;
+  position: relative;
+  height: 500px;
+  width: 360px;
+}
+.card__side {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all .8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+}
+.card__side--front {
+  background-color: #fff;
+}
+.card__side--back {
+  background: #fff;
+  transform: rotateY(180deg);
+}
+.card:hover .card__side--front {
+  transform: rotateY(-180deg);
+}
+.card:hover .card__side--back {
+  transform: rotateY(0deg);
+}
+.avatar img {
+  max-width: 128px;
+}
+.name {
+  font-size: 32px;
+  font-weight: 800;
+}
+.short-description {
+  color: #666;
+}
+.social {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.social a {
+  margin-top: 20px;
+  margin-right: 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #888888;
+}
+.social a.website:hover {
+  color: #000;
+}
+.social a.github:hover {
+  color: #171515;
+}
+.social a.medium:hover {
+  color:#12100E;
+}
+.social a.facebook:hover {
+  color: #4867AA;
+}
+.social a.twitter:hover {
+  color: #1DA1F2;
+}
+.social a.linkedin:hover {
+  color: #0077B5;
+}
+.description {
+  font-size: 18px;
+  max-height: 400px;
+  width: 320px;
+  overflow-y: scroll;
+}
+#style-scroll::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-scroll::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+#style-scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: rgba(75, 207, 250, 0.4);
+}
