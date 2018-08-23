@@ -1,6 +1,5 @@
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-
 from django.core.management import call_command
 from django.test import Client, TestCase
 from django.utils.timezone import now

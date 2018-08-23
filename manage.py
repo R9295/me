@@ -3,6 +3,8 @@ import os
 import sys
 
 if __name__ == '__main__':
+    # create preview folder if not there
+    os.makedirs('./media/previews', exist_ok=True)
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'me.settings')
     try:
         from django.core.management import execute_from_command_line

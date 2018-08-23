@@ -30,12 +30,5 @@ Profile
 <script>
 var simplemde = new SimpleMDE({ element: document.getElementById('id_description'), forceSync: true });
 </script>
-<script>
-var preview = $("#preview")
-preview.on('click', function(event){
-	event.preventDefault()
-  data = $('form').serialize()
-  window.open('/theme/'+$("#id_theme").val()+'?'+data)
-})
-</script>
+<script src="{% static "core/profile.js" %}"></script>
 {% endblock %}
