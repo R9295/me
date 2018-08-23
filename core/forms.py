@@ -15,6 +15,7 @@ FIELD_CLASSES = {
     'medium': 'uk-input',
     'linkedin': 'uk-input',
     'theme': 'uk-select',
+    'image': 'uk-form-file',
 }
 
 FIELD_ICONS = {
@@ -59,7 +60,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('user', 'prefix', 'first_name', 'last_name', 'short_description',
+        fields = ('user', 'prefix', 'image', 'first_name', 'last_name', 'short_description',
                   'description', 'github', 'facebook',
                   'medium', 'twitter', 'linkedin', 'theme',)
         widgets = {

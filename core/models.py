@@ -4,10 +4,15 @@ from accounts.models import User
 from themes.models import Theme
 
 
+def user_image_path(instance, file):
+    return 'user_{0}/{1}'.format(instance.user.pk, file)
+
+
 class Profile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     description = models.TextField()
+    image = models.ImageField(upload_to=user_image_path, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     theme = models.ForeignKey(Theme, on_delete=models.SET_NULL, null=True)
     github = models.URLField(blank=True)

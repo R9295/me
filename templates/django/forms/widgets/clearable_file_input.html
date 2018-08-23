@@ -1,0 +1,11 @@
+<br>
+<label for="{{ widget.checkbox_id }}" style="padding-right: 10px;">{{ widget.clear_checkbox_label }}</label>
+<input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" class="uk-checkbox">
+<br>
+
+  <div class="uk-margin">
+       <div uk-form-custom>
+           <input type="file" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+           <button class="uk-button uk-button-default" type="button" tabindex="-1">Upload</button>
+       </div>
+   </div>

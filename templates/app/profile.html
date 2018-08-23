@@ -11,6 +11,9 @@
 Profile
 {% endblock %}
 
+{% block form_head %}
+<form method="post" enctype="multipart/form-data">
+{% endblock %}
 {% block form_title %}
 <h1 align="center"><span class="uk-margin-small-right" uk-icon="icon: image; ratio: 2"></span> Profile </h1>
 {% endblock %}
@@ -29,7 +32,8 @@ var simplemde = new SimpleMDE({ element: document.getElementById('id_description
 </script>
 <script>
 var preview = $("#preview")
-preview.on('click', function(){
+preview.on('click', function(event){
+	event.preventDefault()
   data = $('form').serialize()
   window.open('/theme/'+$("#id_theme").val()+'?'+data)
 })
