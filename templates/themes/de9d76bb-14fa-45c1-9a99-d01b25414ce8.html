@@ -29,9 +29,21 @@
   </div>
   <ul class="uk-tab-bottom uk-flex-center uk-position-bottom" uk-tab>
     <li class="uk-active"><a href="#">Home</a></li>
-    <li><a href="#">Medium</a></li>
-    <li><a href="#">Github</a></li>
-    <li><a href="#">Twitter</a></li>
+    {% if user.medium %}
+      <li><a href="{{ user.medium }}">Medium</a></li>
+    {% endif %}
+    {% if user.github %}
+    <li><a href="{{ user.github }}">Github</a></li>
+    {%endif%}
+    {% if user.twitter %}
+    <li><a href="{{ user.twitter }}">Twitter</a></li>
+    {%endif%}
+    {% if user.facebook %}
+    <li><a href="{{ user.facebook }}">Facebook</a></li>
+    {%endif%}
+    {% if user.linkedin %}
+    <li><a href="{{ user.linkedin }}">Linkedin</a></li>
+    {%endif%}
   </ul>
   <script src='{% static "themes/de9d76bb-14fa-45c1-9a99-d01b25414ce8/basic.js" %}'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
