@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+{% block title %}
+Thanks for signing up!
+{% endblock %}
+
+{% block content %}
+<br><br>
+<h1>You have been verified! </h1>
+<a href="{% url "accounts:login" %}"><h3 style="text-decoration:underline">Login here</h3></a>
+{% endblock %}

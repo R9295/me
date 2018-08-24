@@ -37,7 +37,16 @@ Add this in your ``~/.bashrc`` or ``~/.zshrc`` for it to be remembered
 export NORECAPTCHA_SITE_KEY=<your_site_key>
 export NORECAPTCHA_SECRET_KEY=<your_secret_key>
 ```
-4. Start the server
+
+5. Add Gmail username and password in environment variables for user verification email
+Enable 'allow less secure apps' on your gmail if you get errors
+Add this in your ``~/.bashrc`` or ``~/.zshrc`` for it to be remembered
+``` bash
+export EMAIL=<your_email>
+export EMAIL_PASS=<your_pass>
+
+```
+6. Start the server
 ```
 ./manage.py runserver
 ```

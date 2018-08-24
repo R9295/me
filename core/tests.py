@@ -32,18 +32,25 @@ class TestCore(TestCase):
     def _create_user(self, user=None):
         if user:
             usr = User.objects.create_user(email=user['email'], password=user['password'])
+            self._verify_user(usr)
         else:
             usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
+            self._verify_user(usr)
         return usr
+
+    def _verify_user(self, user):
+        user.is_active = True
+        user.save()
 
     def _create_profile(self, user=None):
         profile = self.profile.copy()
         profile['theme'] = self._create_theme()
         if user:
             profile['user'] = user
+            self._verify_user(user)
         else:
             profile['user'] = self._create_user()
-
+            self._verify_user(profile['user'])
         Profile.objects.create(**profile)
 
     def test_create_profile(self):
@@ -147,6 +154,7 @@ class TestCore(TestCase):
 
     def test_image_field(self):
         _user = self._create_user()
+        self._verify_user(_user)
         theme = self._create_theme()
         profile = self.profile.copy()
         profile['theme'] = theme.pk

@@ -18,11 +18,17 @@ class TestCoupon(TestCase):
 
     def _create_user(self):
         user = User.objects.create_user(**user_login)
+        self._verify_user(user)
         return user
 
     def _create_superuser(self):
         user = User.objects.create_superuser(**user_login)
+        self._verify_user(user)
         return user
+
+    def _verify_user(self, user):
+        user.is_active = True
+        user.save()
 
     def test_create_coupon(self):
         self._create_superuser()

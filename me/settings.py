@@ -53,6 +53,13 @@ NORECAPTCHA_SECRET_KEY = os.environ['NORECAPTCHA_SECRET_KEY']
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ['EMAIL']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
+EMAIL_PORT = 587
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

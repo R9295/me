@@ -5,6 +5,7 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -42,14 +43,20 @@ def get_default_end_date():
     return time
 
 
+def get_rand_string():
+    string = get_random_string(15)
+    return string
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     email = models.EmailField(_('email address'), unique=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     last_login = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     end_date = models.DateTimeField(default=get_default_end_date)
+    verification_token = models.CharField(max_length=15, default=get_rand_string, editable=False)
     objects = UserManager()

@@ -1,8 +1,12 @@
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from .forms import LoginForm, UserCreationForm
+from .models import User
 
 
 class SignUpView(SuccessMessageMixin, FormView):
@@ -12,9 +16,27 @@ class SignUpView(SuccessMessageMixin, FormView):
     success_message = 'Thanks for signing up!'
 
     def form_valid(self, form):
-        form.save()
-        # TODO send confirmation email
+        user = form.save()
+        send_mail(
+            'Please verify your email',
+            'http://localhost:8000/accounts/verify/{}'.format(user.verification_token),
+            'aarnavbos@gmail.com',
+            [user.email],
+            # TODO handle fail
+            fail_silently=False,
+        )
         return super().form_valid(form)
+
+
+class VerifyView(TemplateView):
+    template_name = 'app/thanks.html'
+
+    def get(self, request, *args, **kwargs):
+            user = get_object_or_404(User, verification_token=self.kwargs.get('token'), is_active=False)
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+            return super(VerifyView, self).get(args, kwargs)
 
 
 class LoginView(BaseLoginView):
