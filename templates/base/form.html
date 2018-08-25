@@ -38,9 +38,11 @@
                 {% endif %}
                 <br>
                 <div>
+                  {% if field.label != "Captcha" %}
                   <label for="{{field.id_for_label}}" style="float: left;">
                   {{ field.label }}
                   </label>
+                  {% endif %}
                   <br>
                   <div class="uk-inline uk-width-1-1" align="left">
                     <!-- TODO find alternative icon provider with more icons-->
