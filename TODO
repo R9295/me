@@ -1,4 +1,3 @@
 Set Profile IDs to UUIDs
-Replace hardcoded urls in all views with reverse()
 Add PGP key option in profile
 Medium feed
