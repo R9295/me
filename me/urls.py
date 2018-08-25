@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include(('core.urls', 'core'), namespace='core')),
     path('theme/', include(('themes.urls', 'themes'), namespace='themes')),
     path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
+    path('', include(('feedback.urls', 'feedback'), namespace='feedback')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

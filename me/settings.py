@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'nocaptcha_recaptcha',
     'core',
     'themes',
+    'feedback',
     'me',
 ]
 
