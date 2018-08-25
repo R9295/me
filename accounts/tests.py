@@ -1,5 +1,5 @@
 import os
-
+import re
 from django.core import mail
 from django.test import Client, TestCase
 from django.utils.timezone import now
@@ -80,3 +80,37 @@ class TestAccounts(TestCase):
         c.get('/accounts/verify/{}'.format(code))
         res = c.get('/accounts/verify/{}'.format(code))
         self.assertEqual(res.status_code, 404)
+
+    def test_reset_password(self):
+        user = self._create_user()
+        password = user.password
+        self._verify_user(user)
+        res = c.post('/accounts/password_reset/', {'email': user.email}, follow=True)
+        self.assertEqual(len(mail.outbox), 1)
+        link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")
+        reset_link = link[link.find('a')-1:]
+        res = c.get(reset_link, follow=True)
+        reset_link = res.request['PATH_INFO']
+        res = c.post(reset_link, {
+            'new_password1': '#1ft32456asda',
+            'new_password2': '#1ft32456asda',
+        }, follow=True)
+        self.assertNotEqual(password, User.objects.first().password)
+
+    def test_reset_password_url_reuse(self):
+        user = self._create_user()
+        self._verify_user(user)
+        res = c.post('/accounts/password_reset/', {'email': user.email}, follow=True)
+        self.assertEqual(len(mail.outbox), 1)
+        link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")
+        reset_link = link[link.find('a')-1:]
+        res = c.get(reset_link, follow=True)
+        reset_link = res.request['PATH_INFO']
+        c.post(reset_link, {
+            'new_password1': '#1ft32456asda',
+            'new_password2': '#1ft32456asda',
+        }, follow=True)
+        # re use the url and make sure there is no 'password' in the link
+        # password here refers to <input type="password">
+        res = c.get(reset_link, follow=True)
+        self.assertNotContains(res, 'password')

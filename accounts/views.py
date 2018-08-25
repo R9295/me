@@ -5,8 +5,10 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import LoginForm, UserCreationForm
+from .forms import LoginForm, UserCreationForm, SetPasswordForm, PasswordResetForm
 from .models import User
+from django.contrib.auth import views
+from django.urls import reverse_lazy
 
 
 class SignUpView(SuccessMessageMixin, FormView):
@@ -37,6 +39,17 @@ class VerifyView(TemplateView):
                 user.is_active = True
                 user.save()
             return super(VerifyView, self).get(args, kwargs)
+
+
+class PasswordResetConfirmView(views.PasswordResetConfirmView):
+    form_class = SetPasswordForm
+    success_url = reverse_lazy('accounts:password_reset_complete')
+
+
+# TODO make sure email actually exists in form else raise validation error
+class PasswordResetView(views.PasswordResetView):
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('accounts:password_reset_done')
 
 
 class LoginView(BaseLoginView):
