@@ -1,20 +1,21 @@
+from django.contrib.auth import views
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import LoginForm, UserCreationForm, SetPasswordForm, PasswordResetForm
+from .forms import (LoginForm, PasswordResetForm, SetPasswordForm,
+                    UserCreationForm)
 from .models import User
-from django.contrib.auth import views
-from django.urls import reverse_lazy
 
 
 class SignUpView(SuccessMessageMixin, FormView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
-    success_url = '/accounts/signup'
+    success_url = reverse_lazy("accounts:signup")
     success_message = 'Thanks for signing up!'
 
     def form_valid(self, form):

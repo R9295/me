@@ -2,6 +2,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.core.management import call_command
 from django.test import Client, TestCase
+from django.urls import reverse
 from django.utils.timezone import now
 
 from accounts.models import User
@@ -60,7 +61,7 @@ class TestCore(TestCase):
         profile['theme'] = theme.pk
         profile['user'] = str(_user.pk)
         c.login(username=user_login['email'], password=user_login['password'])
-        c.post('/me/profile', profile, follow=True)
+        c.post(reverse('core:profile'), profile, follow=True)
         self.assertEqual(Profile.objects.all().count(), 1)
 
     def test_prefix_exists(self):
@@ -70,7 +71,7 @@ class TestCore(TestCase):
         profile['theme'] = Theme.objects.first().pk
         profile['user'] = str(_user.pk)
         c.login(username='test@asd1.asd', password='test123456789')
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'Profile with this Prefix already exists.')
 
     def test_user_is_not_you(self):
@@ -81,7 +82,7 @@ class TestCore(TestCase):
         profile['theme'] = theme.pk
         profile['user'] = str(_user.pk)
         c.login(username='test@asd1.asd', password='test123456789')
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, "The user you&#39;re trying to edit is not you!")
 
     def test_user_required(self):
@@ -91,7 +92,7 @@ class TestCore(TestCase):
         profile.pop('user', None)
         profile['theme'] = theme.pk
         c.login(username='test@asd.asd', password='test123456789')
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, "This field is required.")
 
     def test_theme_required(self):
@@ -101,7 +102,7 @@ class TestCore(TestCase):
         profile.pop('theme', None)
         profile['user'] = _user.pk
         c.login(username='test@asd.asd', password='test123456789')
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'This field is required')
 
     def test_prefix_required(self):
@@ -112,7 +113,7 @@ class TestCore(TestCase):
         profile['user'] = str(_user.pk)
         profile.pop('prefix', None)
         c.login(username=user_login['email'], password=user_login['password'])
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'This field is required')
 
     def test_markdown_xss(self):
@@ -123,13 +124,13 @@ class TestCore(TestCase):
         profile['theme'] = theme.pk
         profile['user'] = str(_user.pk)
         profile['description'] = '[](javascript:alert(123))>'
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'XSS warning!')
         profile['description'] = '[](http://someserver/somescript.js)'
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'XSS warning!')
         profile['description'] = '[](http://someserver/somescript.JS)'
-        res = c.post('/me/profile', profile, follow=True)
+        res = c.post(reverse('core:profile'), profile, follow=True)
         self.assertContains(res, 'XSS warning!')
 
     def test_inactive_profile(self):
@@ -162,5 +163,5 @@ class TestCore(TestCase):
         with open(settings.BASE_DIR+'/media/defaults/default_user.png', 'rb') as img:
             profile['image'] = img
             c.login(username=user_login['email'], password=user_login['password'])
-            c.post('/me/profile', profile, follow=True)
+            c.post(reverse('core:profile'), profile, follow=True)
             self.assertNotEqual(Profile.objects.first().image, None)

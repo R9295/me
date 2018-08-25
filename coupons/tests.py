@@ -1,6 +1,7 @@
 import os
 
 from django.test import Client, TestCase
+from django.urls import reverse
 
 from accounts.models import User
 
@@ -33,7 +34,7 @@ class TestCoupon(TestCase):
     def test_create_coupon(self):
         self._create_superuser()
         c.login(username=user_login['email'], password=user_login['password'])
-        c.post('/admin/coupons/coupon/add/', {
+        c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
             'activated_by': [''],
             'months': ['12']
@@ -43,15 +44,16 @@ class TestCoupon(TestCase):
     def test_activate_coupon(self):
         user = self._create_superuser()
         c.login(username=user_login['email'], password=user_login['password'])
-        c.post('/admin/coupons/coupon/add/', {
+        c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
             'activated_by': [''],
             'months': ['12']
         }, follow=True)
         coupon = Coupon.objects.first()
         end_date = user.end_date
-        c.post('/coupons/activate', {'code': coupon.code,
-                                     'g-recaptcha-response': 'PASSED'}, follow=True)
+        c.post(reverse('coupons:activate'), {'code': coupon.code,
+                                             'g-recaptcha-response': 'PASSED'},
+               follow=True)
         # check if the end date has increased by 12 months
         diff = User.objects.first().end_date - end_date
         self.assertTrue(367 > diff.days > 364)
@@ -63,14 +65,14 @@ class TestCoupon(TestCase):
     def test_cannot_edit_coupon(self):
         self._create_superuser()
         c.login(username=user_login['email'], password=user_login['password'])
-        c.post('/admin/coupons/coupon/add/', {
+        c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
             'activated_by': [''],
             'months': ['12']
         }, follow=True)
         self.assertEqual(Coupon.objects.all().count(), 1)
         coupon = Coupon.objects.first()
-        c.post('/admin/coupons/coupon/{}/change'.format(str(coupon.pk)), {
+        c.post(reverse('admin:coupons_coupon_change', kwargs={'object_id': str(coupon.pk)}), {
             '_save': ['Save'],
             'activated_by': ['123'],
             'months': ['6']

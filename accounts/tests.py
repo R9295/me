@@ -1,7 +1,9 @@
 import os
 import re
+
 from django.core import mail
 from django.test import Client, TestCase
+from django.urls import reverse
 from django.utils.timezone import now
 
 from .models import User
@@ -29,19 +31,19 @@ class TestAccounts(TestCase):
         usr.update({
             'g-recaptcha-response': 'PASSED',
         })
-        res = c.post('/accounts/signup', usr, follow=True)
+        res = c.post(reverse('accounts:signup'), usr, follow=True)
         self.assertContains(res, 'Thanks for signing up!')
         self.assertEqual(User.objects.all().count(), 1)
 
     def test_passwords_not_matching(self):
         _user = user.copy()
         _user['password2'] = 'wrongpassword'
-        res = c.post('/accounts/signup', _user, follow=True)
+        res = c.post(reverse('accounts:signup'), _user, follow=True)
         self.assertContains(res, 'The two password fields didn&#39;t match')
 
     def test_err_email_exists(self):
         self._create_user()
-        res = c.post('/accounts/signup', user, follow=True)
+        res = c.post(reverse('accounts:signup'), user, follow=True)
         self.assertContains(res, 'User with this Email address already exists.')
 
     def test_login(self):
@@ -50,7 +52,7 @@ class TestAccounts(TestCase):
         _user = user_login.copy()
         _user['username'] = user_login['email']
         _user.pop('email', None)
-        res = c.post('/accounts/login', _user, follow=True)
+        res = c.post(reverse('accounts:login'), _user, follow=True)
         # Change this once there's a homepage
         self.assertEqual(res.status_code, 200)
 
@@ -65,27 +67,27 @@ class TestAccounts(TestCase):
         usr.update({
             'g-recaptcha-response': 'PASSED',
         })
-        c.post('/accounts/signup', usr, follow=True)
+        c.post(reverse('accounts:signup'), usr, follow=True)
         self.assertEqual(len(mail.outbox), 1)
 
     def test_verify_email_view(self):
         user = self._create_user()
         code = user.verification_token
-        res = c.get('/accounts/verify/{}'.format(code))
+        res = c.get(reverse('accounts:verify', kwargs={'token': code}))
         self.assertEqual(res.status_code, 200)
 
     def test_404_if_reuse_token(self):
         user = self._create_user()
         code = user.verification_token
-        c.get('/accounts/verify/{}'.format(code))
-        res = c.get('/accounts/verify/{}'.format(code))
+        c.get(reverse('accounts:verify', kwargs={'token': code}))
+        res = c.get(reverse('accounts:verify', kwargs={'token': code}))
         self.assertEqual(res.status_code, 404)
 
     def test_reset_password(self):
         user = self._create_user()
         password = user.password
         self._verify_user(user)
-        res = c.post('/accounts/password_reset/', {'email': user.email}, follow=True)
+        res = c.post(reverse('accounts:password_reset'), {'email': user.email}, follow=True)
         self.assertEqual(len(mail.outbox), 1)
         link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")
         reset_link = link[link.find('a')-1:]
@@ -100,7 +102,7 @@ class TestAccounts(TestCase):
     def test_reset_password_url_reuse(self):
         user = self._create_user()
         self._verify_user(user)
-        res = c.post('/accounts/password_reset/', {'email': user.email}, follow=True)
+        res = c.post(reverse('accounts:password_reset'), {'email': user.email}, follow=True)
         self.assertEqual(len(mail.outbox), 1)
         link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")
         reset_link = link[link.find('a')-1:]

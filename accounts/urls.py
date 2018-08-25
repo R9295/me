@@ -1,10 +1,8 @@
-from django.contrib.auth.views import (LogoutView,
-                                       PasswordResetDoneView,
-                                       PasswordResetCompleteView,
-                                       )
+from django.contrib.auth.views import (LogoutView, PasswordResetCompleteView,
+                                       PasswordResetDoneView)
 from django.urls import path
-from accounts import views
 
+from accounts import views
 
 urlpatterns = [
     path('login', views.LoginView.as_view(), name='login'),
