@@ -6,6 +6,8 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
+from me.base_tests import TestUtils
+
 from .models import User
 
 c = Client()
@@ -13,18 +15,10 @@ user = {'email': 'test@asd.asd', 'password1': 'test123456789', 'password2': 'tes
 user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 
-class TestAccounts(TestCase):
+class TestAccounts(TestUtils, TestCase):
 
     def setUp(self):
         os.environ['NORECAPTCHA_TESTING'] = 'True'
-
-    def _verify_user(self, user):
-        user.is_active = True
-        user.save()
-
-    def _create_user(self):
-        usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
-        return usr
 
     def test_create_user(self):
         usr = user.copy()
@@ -71,13 +65,13 @@ class TestAccounts(TestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_verify_email_view(self):
-        user = self._create_user()
+        user = self._create_user(verify=False)
         code = user.verification_token
         res = c.get(reverse('accounts:verify', kwargs={'token': code}))
         self.assertEqual(res.status_code, 200)
 
     def test_404_if_reuse_token(self):
-        user = self._create_user()
+        user = self._create_user(verify=False)
         code = user.verification_token
         c.get(reverse('accounts:verify', kwargs={'token': code}))
         res = c.get(reverse('accounts:verify', kwargs={'token': code}))
@@ -86,7 +80,6 @@ class TestAccounts(TestCase):
     def test_reset_password(self):
         user = self._create_user()
         password = user.password
-        self._verify_user(user)
         res = c.post(reverse('accounts:password_reset'), {'email': user.email}, follow=True)
         self.assertEqual(len(mail.outbox), 1)
         link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")
@@ -101,7 +94,6 @@ class TestAccounts(TestCase):
 
     def test_reset_password_url_reuse(self):
         user = self._create_user()
-        self._verify_user(user)
         res = c.post(reverse('accounts:password_reset'), {'email': user.email}, follow=True)
         self.assertEqual(len(mail.outbox), 1)
         link = re.search("(?P<url>http?://[^\s]+)", mail.outbox[0].__dict__['body']).group("url")

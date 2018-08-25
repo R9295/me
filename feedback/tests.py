@@ -1,7 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from accounts.models import User
+from me.base_tests import TestUtils
 
 from .models import Feedback
 
@@ -9,16 +9,7 @@ c = Client()
 user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 
-class TestFeedback(TestCase):
-
-        def _create_user(self, user=None):
-            usr = User.objects.create_user(email=user_login['email'], password=user_login['password'])
-            self._verify_user(usr)
-            return usr
-
-        def _verify_user(self, user):
-            user.is_active = True
-            user.save()
+class TestFeedback(TestUtils, TestCase):
 
         def test_add_feedback(self):
             user = self._create_user()

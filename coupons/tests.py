@@ -4,6 +4,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from accounts.models import User
+from me.base_tests import TestUtils
 
 from .models import Coupon
 
@@ -12,27 +13,13 @@ user = {'email': 'test@asd.asd', 'password1': 'test123456789', 'password2': 'tes
 user_login = {'email': 'test@asd.asd', 'password': 'test123456789'}
 
 
-class TestCoupon(TestCase):
+class TestCoupon(TestUtils, TestCase):
 
     def setUp(self):
         os.environ['NORECAPTCHA_TESTING'] = 'True'
 
-    def _create_user(self):
-        user = User.objects.create_user(**user_login)
-        self._verify_user(user)
-        return user
-
-    def _create_superuser(self):
-        user = User.objects.create_superuser(**user_login)
-        self._verify_user(user)
-        return user
-
-    def _verify_user(self, user):
-        user.is_active = True
-        user.save()
-
     def test_create_coupon(self):
-        self._create_superuser()
+        self._create_user(super_user=True)
         c.login(username=user_login['email'], password=user_login['password'])
         c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
@@ -42,7 +29,7 @@ class TestCoupon(TestCase):
         self.assertEqual(Coupon.objects.all().count(), 1)
 
     def test_activate_coupon(self):
-        user = self._create_superuser()
+        user = self._create_user(super_user=True)
         c.login(username=user_login['email'], password=user_login['password'])
         c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
@@ -63,7 +50,7 @@ class TestCoupon(TestCase):
         self.assertEqual(Coupon.objects.first().activated_by, user)
 
     def test_cannot_edit_coupon(self):
-        self._create_superuser()
+        self._create_user(super_user=True)
         c.login(username=user_login['email'], password=user_login['password'])
         c.post(reverse('admin:coupons_coupon_add'), {
             '_save': ['Save'],
