@@ -26,4 +26,11 @@ urlpatterns = [
     path('theme/', include(('themes.urls', 'themes'), namespace='themes')),
     path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
     path('', include(('feedback.urls', 'feedback'), namespace='feedback')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# ERROR HANDLERS for production
+handler400 = 'me.views.handler400'
+handler403 = 'me.views.handler403'
+handler404 = 'me.views.handler404'
+handler500 = 'me.views.handler500'

@@ -21,3 +21,15 @@ class FeedbackView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(FeedbackView, self).form_valid(form)
+
+
+class BugReportView(FeedbackView):
+    template_name = 'feedback/bug_report.html'
+    success_url = reverse_lazy('feedback:bug_report')
+
+    def get_initial(self):
+        initial = super(BugReportView, self).get_initial()
+        initial['user'] = str(self.request.user.pk)
+        initial['type'] = 'BUG'
+        return initial
+    

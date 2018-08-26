@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1 align="center" style="font-size:10rem;">
+  {% block error_code %}
+  {% endblock %}
+  <h1 align="center" style="font-size:2rem;">
+    {% block error_message %}
+    {% endblock %}
+  </h1>
+  {% if user != "AnonymousUser" %}
+  <h3 align="center">
+    If you think this shouldn't happen, submit a bug report <a href="{% url "feedback:bug_report" %}">here.</a>
+    <br>
+    If the bug is legitimate, you'll be rewarded!
+  </h3>
+  <p>Please explain what you were doing in detail, and what went wrong where.</p>
+  {% endif %}
+</h1>
+{% endblock %}
