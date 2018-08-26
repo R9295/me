@@ -22,6 +22,17 @@ class TestFeedback(TestUtils, TestCase):
             }, follow=True)
             self.assertEqual(Feedback.objects.all().count(), 1)
 
+        def test_add_bugreport(self):
+            user = self._create_user()
+            c.login(username=user_login['email'], password=user_login['password'])
+            c.post(reverse('feedback:bug_report'), {
+                'user': str(user.pk),
+                'type': 'BUG',
+                'message': 'MESSAGE123',
+                'g-recaptcha-response': 'PASSED',
+            }, follow=True)
+            self.assertEqual(Feedback.objects.all().count(), 1)
+
         def test_user_required(self):
             self._create_user()
             c.login(username=user_login['email'], password=user_login['password'])
