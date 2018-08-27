@@ -10,6 +10,7 @@ FIELD_CLASSES = {
     'short_description': 'uk-input',
     'description': 'uk-textarea',
     'github': 'uk-input',
+    'unsplash': 'uk-input',
     'facebook': 'uk-input',
     'twitter': 'uk-input',
     'medium': 'uk-input',
@@ -62,7 +63,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('user', 'prefix', 'image', 'first_name', 'last_name', 'short_description',
-                  'description', 'github', 'facebook',
+                  'description', 'github', 'facebook', 'unsplash',
                   'medium', 'twitter', 'linkedin', 'theme', 'feed', )
         widgets = {
             'user': forms.HiddenInput()

@@ -10,7 +10,7 @@ def user_image_path(instance, file):
 
 FEED_TYPES = (
     ('medium', 'Medium'),
-    #('FEEDBACK', 'Feedback'),
+    ('unsplash', 'Unsplash'),
 )
 
 
@@ -26,6 +26,7 @@ class Profile(models.Model):
     twitter = models.URLField(blank=True)
     medium = models.URLField(blank=True)
     linkedin = models.URLField(blank=True)
+    unsplash = models.URLField(blank=True)
     prefix = models.CharField(max_length=25, unique=True)
     short_description = models.CharField(max_length=100, blank=True)
     active = models.BooleanField(default=True)

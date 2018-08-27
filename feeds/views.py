@@ -4,7 +4,7 @@ import requests
 import json
 from core.models import Profile
 from django.shortcuts import get_object_or_404
-
+from django.conf import settings
 
 class MediumFeedView(View):
     def get(self, request, *args, **kwargs):
@@ -24,4 +24,21 @@ class MediumFeedView(View):
         return JsonResponse({
         'response': 'success',
         'data': posts,
+        })
+
+class UnsplashFeedView(View):
+    def get(self, request, *args, **kwargs):
+        profile = get_object_or_404(Profile, prefix=kwargs.get('prefix'), feed="unsplash")
+        unsplash_username = profile.unsplash[profile.unsplash.index('@')+1:]
+        r = requests.get(
+            'https://api.unsplash.com/users/{0}/photos?order_by=latest&client_id={1}'.format(
+                                                                             unsplash_username,
+                                                                             settings.UNSPLASH_ACCESS)
+        )
+        images = []
+        for i in r.json()[:3]:
+            images.append(i['urls']['small'])
+        return JsonResponse({
+        'response': 'success',
+        'data': images,
         })
