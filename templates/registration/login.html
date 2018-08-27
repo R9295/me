@@ -9,5 +9,9 @@ Login
 {% endblock %}
 
 {% block submit %}
+<div align="left">
+<a href="{% url "accounts:password_reset" %}"><small>Forgot password?</small></a>
+</div>
+<br>
 <button class="uk-button uk-button-primary" type="submit">LOGIN</button>
 {% endblock %}
