@@ -8,6 +8,12 @@ def user_image_path(instance, file):
     return 'user_{0}/{1}'.format(instance.user.pk, file)
 
 
+FEED_TYPES = (
+    ('medium', 'Medium'),
+    #('FEEDBACK', 'Feedback'),
+)
+
+
 class Profile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -23,6 +29,7 @@ class Profile(models.Model):
     prefix = models.CharField(max_length=25, unique=True)
     short_description = models.CharField(max_length=100, blank=True)
     active = models.BooleanField(default=True)
+    feed = models.CharField(max_length=15, choices=FEED_TYPES, blank=True)
     # pgp_fingerprint = models.CharField()
     # any key server address(eg. MIT)
     # pgp_link = models.URLField()

@@ -7,6 +7,7 @@ module.exports = {
 
   entry:{
     index: './static/app/index',
+    medium: './static/app/medium.js'
   },
 
   output: {

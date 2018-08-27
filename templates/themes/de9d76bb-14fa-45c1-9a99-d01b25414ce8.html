@@ -1,4 +1,5 @@
 {% load static %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 
@@ -24,6 +25,9 @@
     <p class="description" id="description">
       {{ user.description }}
     </p>
+    <br><br>
+    <div id="react"></div>
+    <br>
     <p>
       <a href="#" target="_blank" class="link">Website</a>
     </p>
@@ -54,8 +58,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+  window.prefix = '{{user.prefix}}'
+  console.log(window.feed)
   document.getElementById('description').innerHTML =
   marked(document.getElementById('description').innerHTML.trim())
   </script>
+  {% render_bundle 'medium' %}
 </body>
 </html>

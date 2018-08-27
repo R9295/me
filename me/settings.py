@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'core',
     'themes',
     'feedback',
+    'feeds',
     'me',
 ]
 
