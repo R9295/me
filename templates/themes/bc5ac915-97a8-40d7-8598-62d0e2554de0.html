@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href='{% static "themes/bc5ac915-97a8-40d7-8598-62d0e2554de0/style.css" %}' rel='stylesheet' />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <title>{{ user.first_name }} {{ user.last_name }}</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card__side card__side--front card__side--front-1">
+        <div class="avatar">
+          {% if user.image %}
+          <img src="{{ user.image.url }}" alt="Avatar">
+          {% else %}
+          <img src="/media/defaults/default_user.png" alt="Avatar">
+          {% endif %}
+        </div>
+        <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
+        <div class="short-description">
+          {{ user.short_description }}
+        </div>
+        <div class="social">
+          <a href="#" class="website"><i class="fas fa-link"></i></a>
+          {% if user.medium %}
+          <a href="{{ user.medium }}" class="medium"><i class="fab fa-medium"></i></a>
+          {% endif %}
+          {% if user.github %}
+          <a href="{{ user.github }}" class="github"><i class="fab fa-github"></i></a>
+          {%endif%}
+          {% if user.twitter %}
+          <a href="{{ user.twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
+          {%endif%}
+          {% if user.facebook %}
+          <a href="{{ user.facebook }}" class="facebook"><i class="fab fa-facebook"></i></a>
+          {%endif%}
+          {% if user.linkedin %}
+          <a href="{{ user.linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+          {%endif%}
+        </div>
+      </div>
+      <div class="card__side card__side--back card__side--back-1">
+        <div class="description" id="style-scroll">
+          <div id="description">{{ user.description }}</div>
+        </div>
+        <div class="social">
+            <a href="#" class="website"><i class="fas fa-link"></i></a>
+            {% if user.medium %}
+            <a href="{{ user.medium }}" class="medium"><i class="fab fa-medium"></i></a>
+            {% endif %}
+            {% if user.github %}
+            <a href="{{ user.github }}" class="github"><i class="fab fa-github"></i></a>
+            {%endif%}
+            {% if user.twitter %}
+            <a href="{{ user.twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
+            {%endif%}
+            {% if user.facebook %}
+            <a href="{{ user.facebook }}" class="facebook"><i class="fab fa-facebook"></i></a>
+            {%endif%}
+            {% if user.linkedin %}
+            <a href="{{ user.linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+            {%endif%}
+          </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+  document.getElementById('description').innerHTML =
+  marked(document.getElementById('description').innerHTML.trim())
+  </script>
+</body>
+</html>
