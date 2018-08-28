@@ -10,7 +10,7 @@ FIELD_CLASSES = {
 }
 
 FIELD_ICONS = {
-    'code': 'unlock'
+    'code': 'fas fa-unlock'
 }
 
 
