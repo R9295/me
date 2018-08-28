@@ -26,20 +26,6 @@ class TestCore(TestUtils, TestCase):
             'prefix': 'me',
         }
 
-    def _create_theme(self):
-        # this is the ID of the BASIC template
-        theme = Theme.objects.create(id='de9d76bb-14fa-45c1-9a99-d01b25414ce8', name='basic')
-        return theme
-
-    def _create_profile(self, user=None):
-        profile = self.profile.copy()
-        profile['theme'] = self._create_theme()
-        if user:
-            profile['user'] = user
-        else:
-            profile['user'] = self._create_user()
-        Profile.objects.create(**profile)
-
     def test_create_profile(self):
         _user = self._create_user()
         theme = self._create_theme()
