@@ -45,7 +45,14 @@ export EMAIL=<your_email>
 export EMAIL_PASS=<your_pass>
 
 ```
-6. Start the server
+6. Add Unsplash key in environment variable
+Add this in your ``~/.bashrc`` or ``~/.zshrc`` for it to be remembered.
+``` bash
+export  UNSPLASH_ACCESS=<unsplash_client_key>
+export UNSPLASH_SEC=<unsplash_secret_key>
+```
+
+7. Start the server
 ```
 ./manage.py runserver
 ```
