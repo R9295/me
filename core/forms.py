@@ -19,15 +19,15 @@ FIELD_CLASSES = {
 }
 
 FIELD_ICONS = {
-    'prefix': 'home',
-    'first_name': 'user',
-    'last_name': 'user',
-    'short_description': 'info',
-    'github': 'github',
-    'facebook': 'facebook',
-    'twitter': 'twitter',
-    'medium': 'medium',
-    'linkedin': 'linkedin',
+    'prefix': 'fas fa-home',
+    'first_name': 'far fa-user',
+    'last_name': 'far fa-user',
+    'short_description': 'fas fa-info-circle',
+    'github': 'fab fa-github',
+    'facebook': 'fab fa-facebook',
+    'twitter': 'fab fa-twitter',
+    'medium': 'fab fa-medium',
+    'linkedin': 'fab fa-linkedin',
 }
 
 # XSS filtering
