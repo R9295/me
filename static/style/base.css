@@ -1,0 +1,9 @@
+.tm-navbar-container:not(.uk-navbar-transparent) {
+  color: #ffffff;
+  background: rgb(68,76,202);
+  background: linear-gradient(210deg, rgba(68,76,202,1) 0%, rgba(61,66,229,1) 100%);
+}
+
+.uk-navbar-nav>li>a {
+  color: #fff;
+}

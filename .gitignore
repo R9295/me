@@ -3,3 +3,5 @@ node_modules/
 webpack-stats.json
 package-lock.json
 db.sqlite3
+media/previews
+media/user_*

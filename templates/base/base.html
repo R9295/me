@@ -10,17 +10,34 @@
       <!-- UIkit CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css" />
 
+      <link href='{% static "style/base.css" %}' rel='stylesheet' />
+
       <!-- UIkit JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
 </head>
   <body>
-    <div align="center">
-  <div class="uk-container-xsmall">
-    {% block content %}
+  <div align="center">
+    <nav class="uk-navbar-container tm-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <a href="/" class="uk-navbar-item uk-logo"><img src="https://d2mdtefgnbhwfs.cloudfront.net/images/social/social-pinterest-white.png" width="36" alt="Placeholder Logo"></a>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          {% if user.is_authenticated %}
+          <li><a href="/accounts/logout">Logout</a></li>
+          {% else %}
+          <li><a href="/accounts/login">Login</a></li>
+          <li><a href="/accounts/signup">Signup</a></li>
+          {%endif%}
+        </ul>
+      </div>
+    </nav>
+    <div class="uk-container-xsmall">
+      {% block content %}
 
-    {% endblock %}
-  </div>
+      {% endblock %}
+    </div>
   </div>
   {% block scripts %}
   {% endblock %}
