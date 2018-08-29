@@ -1,0 +1,35 @@
+{% extends "base/base_navbar.html" %}
+
+{% block title %}
+My Analytics
+{% endblock %}
+
+{% block content %}
+<h1 align="center"><span class="uk-margin-small-right fas fa-user-circle"></span> Analytics</h1>
+<h3> Data is reset every month </h3>
+<br>
+<h1>
+  Page views: {{data.profile_visits}}<br><br>
+  
+  {% if profile.twitter %}
+    Twitter views: {{data.twitter_visits}}<br><br>
+  {% endif %}
+
+  {% if profile.github %}
+  GitHub views: {{data.github_visits}}<br><br>
+  {% endif %}
+
+  {% if profile.medium %}
+    Medium views: {{data.medium_visits}}<br><br>
+  {% endif %}
+
+  {% if profile.facebook %}
+      Facebook views: {{data.facebook_visits}}<br><br>
+  {% endif %}
+
+  {% if profile.linkedin %}
+    LinkedIn views: {{data.linkedin_visits}}<br><br>
+  {% endif %}
+</h1>
+
+{% endblock %}

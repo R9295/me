@@ -5,3 +5,6 @@ package-lock.json
 db.sqlite3
 media/previews
 media/user_*
+static/bundles
+keys
+me/keys.py

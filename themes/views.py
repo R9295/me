@@ -54,6 +54,7 @@ class PreviewThemeView(LoginRequiredMixin, TemplateView):
                     user[k] = self.request.GET.get(k)
 
         context['user'] = user
+        context['preview'] = True
         return context
 
     def get_template_names(self):

@@ -1,4 +1,5 @@
 {% load static %}
+{% load analytics_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,19 +28,19 @@
         <div class="social">
           <a href="#" class="website"><i class="fas fa-link"></i></a>
           {% if user.medium %}
-          <a href="{{ user.medium }}" class="medium"><i class="fab fa-medium"></i></a>
+          <a href="{% inc_url id=user.user.id redir=user.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
           {% endif %}
           {% if user.github %}
-          <a href="{{ user.github }}" class="github"><i class="fab fa-github"></i></a>
+          <a href="{% inc_url id=user.user.id redir=user.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
           {%endif%}
           {% if user.twitter %}
-          <a href="{{ user.twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="{% inc_url id=user.user.id redir=user.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
           {%endif%}
           {% if user.facebook %}
-          <a href="{{ user.facebook }}" class="facebook"><i class="fab fa-facebook"></i></a>
+          <a href="{% inc_url id=user.user.id redir=user.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
           {%endif%}
           {% if user.linkedin %}
-          <a href="{{ user.linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="{% inc_url id=user.user.id redir=user.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
           {%endif%}
         </div>
       </div>
@@ -50,28 +51,31 @@
         <div class="social">
             <a href="#" class="website"><i class="fas fa-link"></i></a>
             {% if user.medium %}
-            <a href="{{ user.medium }}" class="medium"><i class="fab fa-medium"></i></a>
+            <a href="{% inc_url id=user.user.id redir=user.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
             {% endif %}
             {% if user.github %}
-            <a href="{{ user.github }}" class="github"><i class="fab fa-github"></i></a>
+            <a href="{% inc_url id=user.user.id redir=user.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
             {%endif%}
             {% if user.twitter %}
-            <a href="{{ user.twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
+            <a href="{% inc_url id=user.user.id redir=user.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
             {%endif%}
             {% if user.facebook %}
-            <a href="{{ user.facebook }}" class="facebook"><i class="fab fa-facebook"></i></a>
+            <a href="{% inc_url id=user.user.id redir=user.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
             {%endif%}
             {% if user.linkedin %}
-            <a href="{{ user.linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+            <a href="{% inc_url id=user.user.id redir=user.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
             {%endif%}
           </div>
       </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  {% if not preview %}
+  <script src="{% static "themes/base.js"%}"></script>
   <script>
-  document.getElementById('description').innerHTML =
-  marked(document.getElementById('description').innerHTML.trim())
+    var profile_inc_url = "{% inc_url id=user.user.id platform='profile' %}"
+    console.log(profile_inc_url)
   </script>
+  {% endif %}
 </body>
 </html>

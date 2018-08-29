@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+Analytics for me
+{% endblock %}
+
+{% block content %}
+  <div algin="center">
+    <h3>Total users: {{ total_users }}</h3>
+    <h3>Logged in today: {{ logged_today }}</h3>
+    <h3>Signed up today: {{ signed_up_today }}</h3>
+  </div>
+{% endblock %}
