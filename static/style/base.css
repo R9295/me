@@ -7,3 +7,19 @@
 .uk-navbar-nav>li>a {
   color: #fff;
 }
+
+.uk-card-title.twitter {
+  color: #1DA1F2;
+}
+.uk-card-title.github {
+  color: #171515;
+}
+.uk-card-title.medium {
+  color: #12100E;
+}
+.uk-card-title.facebook {
+  color: #4867AA;
+}
+.uk-card-title.linkedin {
+  color: #0077B5;
+}
