@@ -8,6 +8,8 @@
   <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
       {% if user.is_authenticated %}
+      <li><a href="/me">Home</a></li>
+      <li><a href="/analytics/me">Analytics</a></li>
       <li><a href="/accounts/logout">Logout</a></li>
       {% else %}
       <li><a href="/accounts/login">Login</a></li>
