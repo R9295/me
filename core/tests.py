@@ -117,10 +117,10 @@ class TestCore(TestUtils, TestCase):
     def test_404_if_inactive_profile(self):
         user = self._create_user({'end_date': now()-relativedelta(months=1)})
         self._create_profile(user=user)
-        res = c.get('/me', follow=True)
+        res = c.get(reverse('core:user', kwargs={'user_prefix': 'me'}), follow=True)
         self.assertEqual(res.status_code, 200)
         call_command('check_end_date')
-        res = c.get('/me', follow=True)
+        res = c.get(reverse('core:user', kwargs={'user_prefix': 'me'}), follow=True)
         self.assertEqual(res.status_code, 404)
 
     def test_image_field(self):

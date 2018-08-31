@@ -45,4 +45,4 @@ class TestUtils:
             default_profile['user'] = user
         else:
             default_profile['user'] = self._create_user()
-        Profile.objects.create(**default_profile)
+        return Profile.objects.create(**default_profile)

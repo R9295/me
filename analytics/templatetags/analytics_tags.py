@@ -8,7 +8,7 @@ register = template.Library()
 def inc_url(id, platform, redir=None):
     if id:
         url = reverse_lazy('analytics:increment', kwargs={
-            'user_id':  id,
+            'profile_id':  id,
             'platform': platform
         })
         if redir:

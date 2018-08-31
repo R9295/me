@@ -7,8 +7,9 @@ from django.utils.timezone import now
 from django.views.generic import TemplateView, View
 
 from accounts.models import User
+from core.models import Profile
 
-from .models import UserAnalytics
+from .models import ProfileAnalytics
 
 
 class AnalyticsSuperUserView(LoginRequiredMixin, TemplateView):
@@ -32,15 +33,15 @@ class AnalyticsSuperUserView(LoginRequiredMixin, TemplateView):
 class CounterView(View):
 
     def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('user_id')
+        profile_id = kwargs.get('profile_id')
         platform = kwargs.get('platform')
         redir = request.GET.get('redir')
-        if user_id and platform:
+        if profile_id and platform:
             try:
-                a = UserAnalytics.objects.get(user_id=user_id)
+                a = ProfileAnalytics.objects.get(profile=profile_id)
                 setattr(a, platform+'_visits', getattr(a, platform+'_visits') + 1)
                 a.save()
-            except UserAnalytics.DoesNotExist:
+            except ProfileAnalytics.DoesNotExist:
                 pass
             if redir:
                 return redirect(redir)
@@ -55,12 +56,13 @@ class AnalyticsUserView(LoginRequiredMixin, TemplateView):
     template_name = 'analytics/user.html'
 
     def get(self, request, *args, **kwargs):
-        if UserAnalytics.objects.filter(user=self.request.user).count() == 0:
-            return HttpResponse(404)
+        if Profile.objects.filter(user=self.request.user).count() == 0:
+            self.template_name = 'analytics/no_profile.html'
         return super(AnalyticsUserView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(AnalyticsUserView, self).get_context_data()
-        context['data'] = UserAnalytics.objects.get(user=self.request.user)
-        context['profile'] = self.request.user.profile
+        if self.template_name != 'analytics/no_profile.html':
+            context['data'] = ProfileAnalytics.objects.get(profile=self.request.user.profile)
+            context['profile'] = self.request.user.profile
         return context

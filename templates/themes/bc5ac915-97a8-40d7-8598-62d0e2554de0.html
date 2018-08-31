@@ -8,62 +8,62 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='{% static "themes/bc5ac915-97a8-40d7-8598-62d0e2554de0/style.css" %}' rel='stylesheet' />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-  <title>{{ user.first_name }} {{ user.last_name }}</title>
+  <title>{{ profile.first_name }} {{ profile.last_name }}</title>
 </head>
 <body>
   <div class="container">
     <div class="card">
       <div class="card__side card__side--front card__side--front-1">
         <div class="avatar">
-          {% if user.image %}
-          <img src="{{ user.image.url }}" alt="Avatar">
+          {% if profile.image %}
+          <img src="{{ profile.image.url }}" alt="Avatar">
           {% else %}
-          <img src="/media/defaults/default_user.png" alt="Avatar">
+          <img src="/media/defaults/default_profile.png" alt="Avatar">
           {% endif %}
         </div>
-        <div class="name">{{ user.first_name }} {{ user.last_name }}</div>
+        <div class="name">{{ profile.first_name }} {{ profile.last_name }}</div>
         <div class="short-description">
-          {{ user.short_description }}
+          {{ profile.short_description }}
         </div>
         <div class="social">
           <a href="#" class="website"><i class="fas fa-link"></i></a>
-          {% if user.medium %}
-          <a href="{% inc_url id=user.user.id redir=user.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
+          {% if profile.medium %}
+          <a href="{% inc_url id=profile.id redir=profile.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
           {% endif %}
-          {% if user.github %}
-          <a href="{% inc_url id=user.user.id redir=user.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
+          {% if profile.github %}
+          <a href="{% inc_url id=profile.id redir=profile.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
           {%endif%}
-          {% if user.twitter %}
-          <a href="{% inc_url id=user.user.id redir=user.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
+          {% if profile.twitter %}
+          <a href="{% inc_url id=profile.id redir=profile.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
           {%endif%}
-          {% if user.facebook %}
-          <a href="{% inc_url id=user.user.id redir=user.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
+          {% if profile.facebook %}
+          <a href="{% inc_url id=profile.id redir=profile.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
           {%endif%}
-          {% if user.linkedin %}
-          <a href="{% inc_url id=user.user.id redir=user.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+          {% if profile.linkedin %}
+          <a href="{% inc_url id=profile.id redir=profile.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
           {%endif%}
         </div>
       </div>
       <div class="card__side card__side--back card__side--back-1">
         <div class="description" id="style-scroll">
-          <div id="description">{{ user.description }}</div>
+          <div id="description">{{ profile.description }}</div>
         </div>
         <div class="social">
             <a href="#" class="website"><i class="fas fa-link"></i></a>
-            {% if user.medium %}
-            <a href="{% inc_url id=user.user.id redir=user.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
+            {% if profile.medium %}
+            <a href="{% inc_url id=profile.id redir=profile.medium platform="medium" %}" class="medium"><i class="fab fa-medium"></i></a>
             {% endif %}
-            {% if user.github %}
-            <a href="{% inc_url id=user.user.id redir=user.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
+            <a href="{% inc_url id=profile.id redir=profile.github platform="github" %}" class="github"><i class="fab fa-github"></i></a>
+            {% if profile.github %}
             {%endif%}
-            {% if user.twitter %}
-            <a href="{% inc_url id=user.user.id redir=user.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
+            {% if profile.twitter %}
+            <a href="{% inc_url id=profile.id redir=profile.twitter platform="twitter" %}" class="twitter"><i class="fab fa-twitter"></i></a>
             {%endif%}
-            {% if user.facebook %}
-            <a href="{% inc_url id=user.user.id redir=user.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
+            {% if profile.facebook %}
+            <a href="{% inc_url id=profile.id redir=profile.facebook platform="facebook" %}" class="facebook"><i class="fab fa-facebook"></i></a>
             {%endif%}
-            {% if user.linkedin %}
-            <a href="{% inc_url id=user.user.id redir=user.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+            {% if profile.linkedin %}
+            <a href="{% inc_url id=profile.id redir=profile.linkedin platform="linkedin" %}" class="linkedin"><i class="fab fa-linkedin"></i></a>
             {%endif%}
           </div>
       </div>
@@ -73,7 +73,7 @@
   {% if not preview %}
   <script src="{% static "themes/base.js"%}"></script>
   <script>
-    var profile_inc_url = "{% inc_url id=user.user.id platform='profile' %}"
+    var profile_inc_url = "{% inc_url id=profile.id platform='profile' %}"
     console.log(profile_inc_url)
   </script>
   {% endif %}

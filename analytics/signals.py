@@ -3,10 +3,10 @@ from django.dispatch import receiver
 
 from core.models import Profile
 
-from .models import UserAnalytics
+from .models import ProfileAnalytics
 
 
 @receiver(post_save, sender=Profile)
 def create_analytics_profile(sender, instance, created, **kwargs):
     if created:
-        UserAnalytics.objects.create(user=instance.user)
+        ProfileAnalytics.objects.create(profile=instance)

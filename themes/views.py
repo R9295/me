@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views import View
 from django.views.generic import TemplateView
 
-DEFAULT_USER = {
+DEFAULT_PROFILE = {
     'first_name': 'Joe',
     'last_name': 'Strummer',
     'description': '# TEST',
@@ -40,20 +40,20 @@ class PreviewImageView(View):
 class PreviewThemeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(PreviewThemeView, self).get_context_data()
-        user = DEFAULT_USER
-        for k, v in user.items():
+        profile = DEFAULT_PROFILE
+        for k, v in profile.items():
             if self.request.GET.get(k):
                 if k == 'image':
                     if self.request.GET.get(k) == 'none':
-                        user[k] = self.request.user.profile.image
+                        profile[k] = self.request.user.profile.image
                     elif self.request.GET.get(k) == 'clear':
-                        user[k] = None
+                        profile[k] = None
                     else:
-                        user[k] = {'url': self.request.GET.get(k)}
+                        profile[k] = {'url': self.request.GET.get(k)}
                 else:
-                    user[k] = self.request.GET.get(k)
+                    profile[k] = self.request.GET.get(k)
 
-        context['user'] = user
+        context['profile'] = profile
         context['preview'] = True
         return context
 
