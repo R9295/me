@@ -26,6 +26,7 @@ urlpatterns = [
     path('theme/', include(('themes.urls', 'themes'), namespace='themes')),
     path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
     path('', include(('feedback.urls', 'feedback'), namespace='feedback')),
+    path('analytics/', include(('analytics.urls', 'analytics'), namespace='analytics')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -2,6 +2,7 @@ from accounts.models import User
 from core.models import Profile
 from themes.models import Theme
 
+
 class TestUtils:
 
     def _verify_user(self, user):
@@ -28,8 +29,8 @@ class TestUtils:
         theme = Theme.objects.create(id='de9d76bb-14fa-45c1-9a99-d01b25414ce8', name='basic')
         return theme
 
-    def _create_profile(self, user=None):
-        profile = {
+    def _create_profile(self, user=None, profile=None):
+        default_profile = {
             'first_name': 'aarnav',
             'last_name': 'bos',
             'description': 'ok',
@@ -37,9 +38,11 @@ class TestUtils:
             'user': '',
             'prefix': 'me',
         }
-        profile['theme'] = self._create_theme()
+        if profile:
+            default_profile.update(profile)
+        default_profile['theme'] = self._create_theme()
         if user:
-            profile['user'] = user
+            default_profile['user'] = user
         else:
-            profile['user'] = self._create_user()
-        Profile.objects.create(**profile)
+            default_profile['user'] = self._create_user()
+        return Profile.objects.create(**default_profile)

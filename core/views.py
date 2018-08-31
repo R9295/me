@@ -39,8 +39,8 @@ class UserView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserView, self).get_context_data()
-        context['user'] = get_object_or_404(Profile, prefix=self.kwargs.get('user_prefix'), active=True)
-        self.profile = context['user']
+        context['profile'] = get_object_or_404(Profile, prefix=self.kwargs.get('user_prefix'), active=True)
+        self.profile = context['profile']
         return context
 
     def get_template_names(self):
