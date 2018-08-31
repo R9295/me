@@ -3,3 +3,4 @@ node_modules/
 webpack-stats.json
 package-lock.json
 db.sqlite3
+static/bundles/
