@@ -30,7 +30,7 @@ class Profile(models.Model):
     prefix = models.CharField(max_length=25, unique=True)
     short_description = models.CharField(max_length=100, blank=True)
     active = models.BooleanField(default=True)
-    feed = models.CharField(max_length=15, choices=FEED_TYPES, blank=True)
+    # feed = models.CharField(max_length=15, choices=FEED_TYPES, blank=True)
     # pgp_fingerprint = models.CharField()
     # any key server address(eg. MIT)
     # pgp_link = models.URLField()

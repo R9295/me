@@ -17,7 +17,6 @@ FIELD_CLASSES = {
     'linkedin': 'uk-input',
     'theme': 'uk-select',
     'image': 'uk-form-file',
-    'feed': 'uk-select',
 }
 
 FIELD_ICONS = {
@@ -64,7 +63,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('user', 'prefix', 'image', 'first_name', 'last_name', 'short_description',
                   'description', 'github', 'facebook', 'unsplash',
-                  'medium', 'twitter', 'linkedin', 'theme', 'feed', )
+                  'medium', 'twitter', 'linkedin', 'theme', )
         widgets = {
             'user': forms.HiddenInput()
         }

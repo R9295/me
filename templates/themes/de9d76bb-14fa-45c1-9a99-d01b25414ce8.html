@@ -61,7 +61,6 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
   window.prefix = '{{user.prefix}}'
-  console.log(window.feed)
   document.getElementById('description').innerHTML =
   marked(document.getElementById('description').innerHTML.trim())
   function toggleHome() {
@@ -73,6 +72,11 @@
     document.getElementById('react').classList.remove('hidden');
   }
   </script>
-  {% render_bundle user.feed %}
+  {% if user.medium %}
+  {% render_bundle "medium"%}
+  {% endif %}
+  {% if user.unsplash %}
+  {% render_bundle "unsplash"%}
+  {% endif %}
 </body>
 </html>
