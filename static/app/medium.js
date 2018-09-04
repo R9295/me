@@ -23,9 +23,11 @@ class MediumFeed extends React.Component {
     render () {
       console.log(this.state.posts)
         return(
-          <div className='medium-grid uk-position-center'>
-            {this.state.posts.map(item => <MediumFeedChild item={item} key={item.url} />)}
-            <a href="#">Open on Medium</a>
+          <div>
+            <a href="#" className='link-feed uk-position-medium uk-position-top-center'>Open on Medium</a>
+            <div className='medium-grid uk-position-center'>
+              {this.state.posts.map(item => <MediumFeedChild item={item} key={item.url} />)}
+            </div>
           </div>
         )
     }
@@ -43,5 +45,5 @@ function MediumFeedChild(props){
 
 ReactDOM.render(
   <MediumFeed />,
-  document.getElementById('react')
+  document.getElementById('react-medium')
 );

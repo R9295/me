@@ -84,7 +84,13 @@ a:hover {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
   transition: box-shadow .3s;
 }
-.card:hover {
+.image-card {
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow .3s;
+}
+.card:hover, .image-card:hover {
   box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.2);
 }
 .medium-anchor {
@@ -96,4 +102,7 @@ a:hover {
 .medium-anchor:hover {
   text-decoration: none;
   color: #1BB495;
+}
+.link-feed {
+  color: #333;
 }

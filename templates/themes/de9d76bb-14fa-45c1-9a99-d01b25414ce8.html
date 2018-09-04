@@ -36,11 +36,15 @@
       </p>
     </div>
   </div>
-  <div id="react" class="hidden"></div>
+  <div id="react-medium" class="hidden"></div>
+  <div id="react-unsplash" class="hidden"></div>
   <ul class="uk-tab-bottom uk-flex-center uk-position-bottom" uk-tab>
     <li class="uk-active"><a onclick="toggleHome()">Home</a></li>
     {% if user.medium %}
-      <li><a onclick="toggleReact()">Medium</a></li>
+      <li><a onclick="toggleMedium()">Medium</a></li>
+    {% endif %}
+    {% if user.unsplash %}
+      <li><a onclick="toggleUnsplash()">Unsplash</a></li>
     {% endif %}
     {% if user.github %}
     <li><a href="{{ user.github }}">Github</a></li>
@@ -65,11 +69,18 @@
   marked(document.getElementById('description').innerHTML.trim())
   function toggleHome() {
     document.getElementById('primary-content').classList.remove('hidden');
-    document.getElementById('react').classList.add('hidden');
+    document.getElementById('react-medium').classList.add('hidden');
+    document.getElementById('react-unsplash').classList.add('hidden');
   }
-  function toggleReact() {
+  function toggleMedium() {
     document.getElementById('primary-content').classList.add('hidden');
-    document.getElementById('react').classList.remove('hidden');
+    document.getElementById('react-medium').classList.remove('hidden');
+    document.getElementById('react-unsplash').classList.add('hidden');
+  }
+  function toggleUnsplash() {
+    document.getElementById('primary-content').classList.add('hidden');
+    document.getElementById('react-medium').classList.add('hidden');
+    document.getElementById('react-unsplash').classList.remove('hidden');
   }
   </script>
   {% if user.medium %}
