@@ -71,23 +71,29 @@
   window.prefix = '{{profile.prefix}}'
   document.getElementById('description').innerHTML =
   marked(document.getElementById('description').innerHTML.trim())
+  {% if profile.medium or profile.unsplash %}
   function toggleHome() {
     document.getElementById('primary-content').classList.remove('hidden');
     document.getElementById('react-medium').classList.add('hidden');
     document.getElementById('react-unsplash').classList.add('hidden');
   }
+  {% endif %}
+  {% if profile.medium %}
   function toggleMedium() {
     fetch("{% inc_url id=profile.id redir=profile.medium platform="medium" %}")
     document.getElementById('primary-content').classList.add('hidden');
     document.getElementById('react-medium').classList.remove('hidden');
     document.getElementById('react-unsplash').classList.add('hidden');
   }
+  {% endif %}
+  {% if profile.unsplash %}
   function toggleUnsplash() {
     fetch("{% inc_url id=profile.id redir=profile.unsplash platform="unsplash" %}")
     document.getElementById('primary-content').classList.add('hidden');
     document.getElementById('react-medium').classList.add('hidden');
     document.getElementById('react-unsplash').classList.remove('hidden');
   }
+  {% endif %}
   var profile_inc_url = "{% inc_url id=profile.id platform='profile' %}"
   </script>
   {% if profile.medium %}
