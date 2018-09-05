@@ -1,5 +1,7 @@
 from django.contrib.auth import views
 from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import \
+    PasswordChangeView as BasePasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
@@ -8,7 +10,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from .forms import (LoginForm, PasswordResetForm, SetPasswordForm,
-                    UserCreationForm)
+                    SettingsForm, UserCreationForm)
 from .models import User
 
 
@@ -55,3 +57,9 @@ class PasswordResetView(views.PasswordResetView):
 
 class LoginView(BaseLoginView):
     form_class = LoginForm
+
+class SettingsView(SuccessMessageMixin, BasePasswordChangeView):
+    form_class = SettingsForm
+    template_name = 'registration/settings.html'
+    success_message = 'Succesfully updated your settings'
+    success_url = reverse_lazy('accounts:settings')

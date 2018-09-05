@@ -1,23 +1,16 @@
 from django import forms
 from nocaptcha_recaptcha.fields import NoReCaptchaField
-
+from me.base_forms import StyledForm
 from .models import Feedback
 
-FIELD_CLASSES = {
-    'type': 'uk-select',
-    'message': 'uk-textarea',
-}
 
-
-class FeedbackForm(forms.ModelForm):
-
+class FeedbackForm(StyledForm, forms.ModelForm):
+    field_css = {
+        'type': 'uk-select',
+        'message': 'uk-textarea',
+    }
+    field_icons = None
     captcha = NoReCaptchaField()
-
-    def __init__(self, *args, **kwargs):
-        super(FeedbackForm, self).__init__(*args, **kwargs)
-        # set classes
-        for k, v in self.fields.items():
-            v.widget.attrs['class'] = FIELD_CLASSES.get(k)
 
     class Meta:
         model = Feedback

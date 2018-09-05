@@ -17,15 +17,15 @@
   <canvas></canvas>
   <div id="primary-content">
     <div class="uk-position-center wrapper">
-      {% if user.image %}
-      <img src="{{ user.image.url }}" alt="Avatar" class="avatar-user" width="128">
+      {% if profile.image %}
+      <img src="{{ profile.image.url }}" alt="Avatar" class="avatar-user" width="128">
       {% else %}
       <img src="/media/defaults/default_user.png" alt="Avatar" class="avatar-user" width="128">
       {% endif %}
-      <h1>{{user.first_name}} {{user.last_name}}</h1>
-      <h2>{{user.short_description}}</h2>
+      <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+      <h2>{{profile.short_description}}</h2>
       <p class="description" id="description">
-        {{ user.description }}
+        {{ profile.description }}
       </p>
       <br><br>
       <br>
@@ -41,11 +41,11 @@
   <div id="react-unsplash" class="hidden"></div>
   <ul class="uk-tab-bottom uk-flex-center uk-position-bottom" uk-tab>
     <li class="uk-active"><a onclick="toggleHome()">Home</a></li>
-    {% if user.medium %}
+    {% if profile.medium %}
       <li><a onclick="toggleMedium()">Medium</a></li>
     {% endif %}
-    {% if user.unsplash %}
-      <li><a onclick="toggleUnsplash()">Unsplash</a></li>  
+    {% if profile.unsplash %}
+      <li><a onclick="toggleUnsplash()">Unsplash</a></li>
     {% endif %}
     {% if profile.github %}
     <li><a href="{% inc_url id=profile.id redir=profile.github platform="github" %}">Github</a></li>
@@ -66,8 +66,9 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   {% if not preview %}
   <script src="{% static "themes/base.js"%}"></script>
+  {% endif %}
   <script>
-  window.prefix = '{{user.prefix}}'
+  window.prefix = '{{profile.prefix}}'
   document.getElementById('description').innerHTML =
   marked(document.getElementById('description').innerHTML.trim())
   function toggleHome() {
@@ -76,6 +77,7 @@
     document.getElementById('react-unsplash').classList.add('hidden');
   }
   function toggleMedium() {
+    fetch("{% inc_url id=profile.id redir=profile.medium platform="medium" %}")
     document.getElementById('primary-content').classList.add('hidden');
     document.getElementById('react-medium').classList.remove('hidden');
     document.getElementById('react-unsplash').classList.add('hidden');
@@ -87,10 +89,10 @@
   }
   var profile_inc_url = "{% inc_url id=profile.id platform='profile' %}"
   </script>
-  {% if user.medium %}
+  {% if profile.medium %}
   {% render_bundle "medium"%}
   {% endif %}
-  {% if user.unsplash %}
+  {% if profile.unsplash %}
   {% render_bundle "unsplash"%}
   {% endif %}
 </body>

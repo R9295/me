@@ -1,35 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
+from me.base_forms import StyledForm
+
 from .models import Profile
-
-FIELD_CLASSES = {
-    'prefix': 'uk-input',
-    'first_name': 'uk-input',
-    'last_name': 'uk-input',
-    'short_description': 'uk-input',
-    'description': 'uk-textarea',
-    'github': 'uk-input',
-    'unsplash': 'uk-input',
-    'facebook': 'uk-input',
-    'twitter': 'uk-input',
-    'medium': 'uk-input',
-    'linkedin': 'uk-input',
-    'theme': 'uk-select',
-    'image': 'uk-form-file',
-}
-
-FIELD_ICONS = {
-    'prefix': 'fas fa-home',
-    'first_name': 'far fa-user',
-    'last_name': 'far fa-user',
-    'short_description': 'fas fa-info-circle',
-    'github': 'fab fa-github',
-    'facebook': 'fab fa-facebook',
-    'twitter': 'fab fa-twitter',
-    'medium': 'fab fa-medium',
-    'linkedin': 'fab fa-linkedin',
-}
 
 # XSS filtering
 XSS_FILTERS = [
@@ -40,14 +14,35 @@ XSS_FILTERS = [
 ]
 
 
-class ProfileForm(forms.ModelForm):
+class ProfileForm(StyledForm, forms.ModelForm):
+    field_css = {
+        'prefix': 'uk-input',
+        'first_name': 'uk-input',
+        'last_name': 'uk-input',
+        'short_description': 'uk-input',
+        'description': 'uk-textarea',
+        'github': 'uk-input',
+        'facebook': 'uk-input',
+        'twitter': 'uk-input',
+        'medium': 'uk-input',
+        'linkedin': 'uk-input',
+        'unsplash': 'uk-input',
+        'theme': 'uk-select',
+        'image': 'uk-form-file',
+    }
 
-    def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        # set classes
-        for k, v in self.fields.items():
-            v.widget.attrs['class'] = FIELD_CLASSES.get(k)
-            v.widget.icon = FIELD_ICONS.get(k)
+    field_icons = {
+        'prefix': 'fas fa-home',
+        'first_name': 'far fa-user',
+        'last_name': 'far fa-user',
+        'short_description': 'fas fa-info-circle',
+        'github': 'fab fa-github',
+        'facebook': 'fab fa-facebook',
+        'twitter': 'fab fa-twitter',
+        'medium': 'fab fa-medium',
+        'linkedin': 'fab fa-linkedin',
+        'unsplash': 'fab fa-unsplash',
+    }
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
@@ -63,7 +58,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('user', 'prefix', 'image', 'first_name', 'last_name', 'short_description',
                   'description', 'github', 'facebook', 'unsplash',
-                  'medium', 'twitter', 'linkedin', 'theme', )
+                  'medium', 'twitter', 'linkedin', 'theme',)
         widgets = {
             'user': forms.HiddenInput()
         }
