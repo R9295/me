@@ -7,20 +7,26 @@
 
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- FontAwesome Icons -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
       <!-- UIkit CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css" />
+
+      <link href='{% static "style/base.css" %}' rel='stylesheet' />
 
       <!-- UIkit JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
 </head>
   <body>
-    <div align="center">
-  <div class="uk-container-xsmall">
-    {% block content %}
-
-    {% endblock %}
-  </div>
+  {% block navbar %}
+  {% endblock %}
+  <div align="center">
+    <div class="uk-container-xsmall">
+      {% block content %}
+      {% endblock %}
+    </div>
   </div>
   {% block scripts %}
   {% endblock %}

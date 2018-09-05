@@ -1,3 +1,5 @@
+{% extends "base/base_navbar.html" %}
+{% block content  %}
 <div align="center">
   Welcome {{user.pk}},
   <br><br>
@@ -9,3 +11,4 @@
   <br><br>
   Logout <a href="{% url 'accounts:logout' %}">here.</a>
 </div>
+{% endblock %}

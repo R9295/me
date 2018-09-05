@@ -8,6 +8,7 @@
     {% block error_message %}
     {% endblock %}
   </h1>
+  {% block form %}
   {% if user != "AnonymousUser" %}
   <h3 align="center">
     If you think this shouldn't happen, submit a bug report <a href="{% url "feedback:bug_report" %}">here.</a>
@@ -16,5 +17,6 @@
   </h3>
   <p>Please explain what you were doing in detail, and what went wrong where.</p>
   {% endif %}
+  {% endblock%}
 </h1>
 {% endblock %}

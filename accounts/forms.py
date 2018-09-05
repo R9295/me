@@ -13,9 +13,9 @@ CREATE_FIELD_CLASSES = {
 }
 
 CREATE_FIELD_ICONS = {
-    'email': 'user',
-    'password1': 'lock',
-    'password2': 'lock',
+    'email': 'fas fa-envelope',
+    'password1': 'fas fa-lock',
+    'password2': 'fas fa-lock',
 }
 
 
@@ -50,8 +50,8 @@ LOGIN_FIELD_CLASSES = {
 }
 
 LOGIN_FIELD_ICONS = {
-    'username': 'user',
-    'password': 'lock',
+    'username': 'fas fa-envelope',
+    'password': 'fas fa-lock',
 }
 
 

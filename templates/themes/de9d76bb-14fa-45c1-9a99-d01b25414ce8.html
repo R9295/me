@@ -1,10 +1,11 @@
 {% load static %}
 {% load render_bundle from webpack_loader %}
+{% load analytics_tags %}
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>{{ user.first_name }} {{ user.last_name }}</title>
+  <title>{{ profile.first_name }} {{ profile.last_name }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css" />
@@ -44,25 +45,27 @@
       <li><a onclick="toggleMedium()">Medium</a></li>
     {% endif %}
     {% if user.unsplash %}
-      <li><a onclick="toggleUnsplash()">Unsplash</a></li>
+      <li><a onclick="toggleUnsplash()">Unsplash</a></li>  
     {% endif %}
-    {% if user.github %}
-    <li><a href="{{ user.github }}">Github</a></li>
+    {% if profile.github %}
+    <li><a href="{% inc_url id=profile.id redir=profile.github platform="github" %}">Github</a></li>
     {%endif%}
-    {% if user.twitter %}
-    <li><a href="{{ user.twitter }}">Twitter</a></li>
+    {% if profile.twitter %}
+    <li><a href="{% inc_url id=profile.id redir=profile.twitter platform="twitter" %}">Twitter</a></li>
     {%endif%}
-    {% if user.facebook %}
-    <li><a href="{{ user.facebook }}">Facebook</a></li>
+    {% if profile.facebook %}
+    <li><a href="{% inc_url id=profile.id redir=profile.facebook platform="facebook" %}">Facebook</a></li>
     {%endif%}
-    {% if user.linkedin %}
-    <li><a href="{{ user.linkedin }}">Linkedin</a></li>
+    {% if profile.linkedin %}
+    <li><a href="{% inc_url id=profile.id redir=profile.linkedin platform="linkedin" %}">Linkedin</a></li>
     {%endif%}
   </ul>
   <script src='{% static "themes/de9d76bb-14fa-45c1-9a99-d01b25414ce8/basic.js" %}'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  {% if not preview %}
+  <script src="{% static "themes/base.js"%}"></script>
   <script>
   window.prefix = '{{user.prefix}}'
   document.getElementById('description').innerHTML =
@@ -82,6 +85,7 @@
     document.getElementById('react-medium').classList.add('hidden');
     document.getElementById('react-unsplash').classList.remove('hidden');
   }
+  var profile_inc_url = "{% inc_url id=profile.id platform='profile' %}"
   </script>
   {% if user.medium %}
   {% render_bundle "medium"%}

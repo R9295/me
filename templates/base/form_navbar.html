@@ -1,0 +1,22 @@
+{% extends "base/form.html" %}
+
+{% block navbar %}
+<nav class="uk-navbar-container tm-navbar-container" uk-navbar>
+  <div class="uk-navbar-left">
+    <a href="/" class="uk-navbar-item uk-logo"><img src="https://d2mdtefgnbhwfs.cloudfront.net/images/social/social-pinterest-white.png" width="36" alt="Placeholder Logo"></a>
+  </div>
+  <div class="uk-navbar-right">
+    <ul class="uk-navbar-nav">
+      {% if user.is_authenticated %}
+      <li><a href="/me">Home</a></li>
+      <li><a href="/analytics/me">Analytics</a></li>
+      <li><a href="/accounts/logout">Logout</a></li>
+      {% else %}
+      <li><a href="/accounts/login">Login</a></li>
+      <li><a href="/accounts/signup">Signup</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<br><br>
+{% endblock %}

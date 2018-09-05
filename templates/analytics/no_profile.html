@@ -1,0 +1,17 @@
+{% extends "base/error.html" %}
+
+{% block title %}
+You need a profile!
+{% endblock %}
+
+
+{% block error_code %}
+
+{% endblock %}
+
+{% block error_message %}
+You need to create a profile to access this. <br>
+Create one <a href="{% url "core:profile"%}">here.</a>
+{% endblock %}
+{% block form %}
+{% endblock %}

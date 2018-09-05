@@ -4,3 +4,9 @@ webpack-stats.json
 package-lock.json
 db.sqlite3
 static/bundles/
+media/previews
+media/user_*
+static/bundles
+keys
+me/keys.py
+

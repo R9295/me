@@ -11,7 +11,7 @@
               <div class="uk-alert-danger uk-width-5-6" uk-alert>
                 <a class="uk-alert-close" uk-close></a>
                     {% for error in form.non_field_errors%}
-                      <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                      <p align="center"><span class="uk-margin-small-right fas fa-exclamation-circle"></span>{{ error }}</p>
                     {% endfor %}
               </div>
               {% endif %}
@@ -20,7 +20,7 @@
                   {% for message in messages %}
                   <div class="uk-alert-success" uk-alert>
                   <a class="uk-alert-close" uk-close></a>
-                  <p align="center"><span class="uk-margin-small-right" uk-icon="icon: happy"></span>{{ message }}</p>
+                  <p align="center"><span class="uk-margin-small-right fas fa-smile"></span>{{ message }}</p>
                   </div>
                   {% endfor %}
               </ul>
@@ -32,7 +32,7 @@
                 <div class="uk-alert-danger uk-width-5-6" uk-alert>
                   <a class="uk-alert-close" uk-close></a>
                   {% for error in field.errors%}
-                    <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                    <p align="center"><span class="uk-margin-small-right fas fa-exclamation-circle"></span>{{ error }}</p>
                   {% endfor %}
                 </div>
                 {% endif %}
@@ -47,7 +47,7 @@
                   <div class="uk-inline uk-width-1-1" align="left">
                     <!-- TODO find alternative icon provider with more icons-->
                     {% if field.field.widget.icon %}
-                    <span class="uk-form-icon" uk-icon="icon: {{field.field.widget.icon}}"></span>
+                    <span class="uk-form-icon {{field.field.widget.icon}}"></span>
                     {% endif %}
                     {{field}}
                   </div>
@@ -63,7 +63,7 @@
               <div class="uk-alert-danger uk-width-5-6" uk-alert>
                 <a class="uk-alert-close" uk-close></a>
                 {% for error in field.errors%}
-                  <p align="center"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>{{ error }}</p>
+                  <p align="center"><span class="uk-margin-small-right fas fa-exclamation-circle"></span>{{ error }}</p>
                 {% endfor %}
               </div>
               {% endif %}
