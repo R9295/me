@@ -47,11 +47,14 @@ INSTALLED_APPS = [
     'core',
     'themes',
     'feedback',
+    'feeds',
     'me',
 ]
 
 NORECAPTCHA_SITE_KEY = os.environ['NORECAPTCHA_SITE_KEY']
 NORECAPTCHA_SECRET_KEY = os.environ['NORECAPTCHA_SECRET_KEY']
+UNSPLASH_ACCESS = os.environ['UNSPLASH_ACCESS']
+UNSPLASH_SEC = os.environ['UNSPLASH_SEC']
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 

@@ -52,7 +52,7 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: -12;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -67,4 +67,42 @@ a:hover {
 }
 .avatar-user {
   z-index: 999;
+}
+.hidden {
+  display: none;
+}
+.medium-grid {
+  width: 85%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+.card {
+  background: #fff;
+  padding: 10px;
+  border-radius: 25px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow .3s;
+}
+.image-card {
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow .3s;
+}
+.card:hover, .image-card:hover {
+  box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.2);
+}
+.medium-anchor {
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #02B875;
+  font-weight: 700;
+}
+.medium-anchor:hover {
+  text-decoration: none;
+  color: #1BB495;
+}
+.link-feed {
+  color: #333;
 }

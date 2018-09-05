@@ -7,6 +7,8 @@ module.exports = {
 
   entry:{
     index: './static/app/index',
+    medium: './static/app/medium.js',
+    unsplash: './static/app/unsplash.js',
   },
 
   output: {
