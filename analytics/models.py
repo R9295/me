@@ -13,4 +13,4 @@ class ProfileAnalytics(models.Model):
     twitter_visits = models.IntegerField(default=0)
     medium_visits = models.IntegerField(default=0)
     last_updated = models.DateTimeField(default=now)
-    # TODO ADD UNSPLASH VISITS once merged
+    unsplash_visits = models.IntegerField(default=0)

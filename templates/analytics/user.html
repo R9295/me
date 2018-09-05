@@ -14,7 +14,7 @@ My Analytics
       <p>{{data.profile_visits}}</p>
     </div>
   </div>
-  
+
   {% if profile.twitter %}
   <div>
     <div class="uk-card uk-card-default uk-card-hover uk-card-body">
@@ -56,6 +56,14 @@ My Analytics
     <div class="uk-card uk-card-default uk-card-hover uk-card-body">
       <h3 class="uk-card-title linkedin"><i class="fab fa-linkedin"></i>&nbsp; LinkedIn</h3>
       <p>{{data.linkedin_visits}}</p>
+    </div>
+  </div>
+  {% endif %}
+  {% if profile.unsplash %}
+  <div>
+    <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+      <h3 class="uk-card-title">&nbsp; Unsplash</h3>
+      <p>{{data.unsplash_visits}}</p>
     </div>
   </div>
   {% endif %}

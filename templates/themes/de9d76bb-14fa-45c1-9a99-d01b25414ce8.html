@@ -83,6 +83,7 @@
     document.getElementById('react-unsplash').classList.add('hidden');
   }
   function toggleUnsplash() {
+    fetch("{% inc_url id=profile.id redir=profile.unsplash platform="unsplash" %}")
     document.getElementById('primary-content').classList.add('hidden');
     document.getElementById('react-medium').classList.add('hidden');
     document.getElementById('react-unsplash').classList.remove('hidden');
