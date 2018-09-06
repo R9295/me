@@ -18,7 +18,8 @@ virtualenv venv
 source venv/bin/activate
 ```
 
-2. Install dependencies
+2. Install dependencies and create a PostgreSQL database called "me"
+Tweak the settings.py's DB username and password to yours.
 
 ```
 pip3 install -r requirements.txt
