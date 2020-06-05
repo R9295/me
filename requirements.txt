@@ -1,7 +1,7 @@
 certifi==2018.8.24
 chardet==3.0.4
 coverage==4.5.1
-Django==2.1
+Django==2.2.13
 django-nocaptcha-recaptcha==0.0.20
 django-ratelimit==1.1.0
 django-webpack-loader==0.6.0
